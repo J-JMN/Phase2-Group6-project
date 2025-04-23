@@ -23,12 +23,6 @@
           "email": "dennissammy77@gmail.com",
           "role": "owner",
           "id": "1"
-        },
-        {
-          "name": "dennis",
-          "email": "dennissammy77@gmail.com",
-          "role": "owner",
-          "id": "2"
         }
       ],
       "categories": ["cleaning", "groceries"],
@@ -60,4 +54,3 @@
       }
     ]
   }
-  
