@@ -1,6 +1,16 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
+:root{
+  --primary: #20412E; 
+  --secondary: #E5C15E; 
+  --dark: #040000; 
+  --base: #F8FFF8; 
+  --white: #FFFFFF; 
+}
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  font-style: normal;
   font-weight: 400;
 
   color-scheme: light dark;
@@ -23,46 +33,28 @@ a:hover {
 }
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  height: 100vh;
+  width: 100vw;
+  background-color: var(--base) !important;
 }
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+.custom-bg-primary{
+  background-color: var(--primary) !important;
 }
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
+.custom-bg-secondary{
+  background-color: var(--secondary) !important;
 }
-button:hover {
-  border-color: #646cff;
+.custom-bg-dark{
+  background-color: var(--dark) !important;
 }
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+.custom-bg-base{
+  background-color: var(--base) !important;
 }
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+.custom-text-color-primary{
+  color: var(--primary) !important;
+}
+.custom-text-color-secondary{
+  color: var(--secondary) !important;
+}
+.custom-text-color-dark{
+  color: var(--dark) !important;
 }
