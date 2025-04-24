@@ -1,0 +1,48 @@
+.loginContainer {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  min-height: 100vh;
+  background: #aae2c8;
+}
+.loginForm {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.formInput {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #aae2c8;
+  border-radius: 5px;
+  font-size: 2rem;
+}
+
+.submitButton {
+  width: 100%;
+  padding: 1rem;
+  background: #26e68c;
+  color: black;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.5s ease;
+}
+
+.errorMessage {
+  color: #8b2a34;
+  font-size: 1 rem;
+  margin-top: 0.25rem;
+}
+
+@media (max-width: 768px) {
+  .loginContainer {
+    grid-template-columns: 1fr;
+  }
+  .loginForm {
+    padding: 2rem;
+  }
+}
