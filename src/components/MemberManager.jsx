@@ -1,7 +1,6 @@
-import useMembers from "../hooks/useMembers";
-
+import useMembers from "../hooks/ useMembers";
 const MemberManager = ({ members, setMembers }) => {
-  const { addMember, removeMember } = useMembers(members, setMembers);
+  const {addMember, removeMember} = useMembers(members, setMembers);
 
   return (
     <div className="form-group">
