@@ -1,7 +1,6 @@
 import React from "react";
 import useLocalSettings from "../hooks/useLocalSettings";
 import SettingsForm from "../components/SettingsForm";
-import CategoryManager from "../components/CategoryManager";
 import MemberManager from "../components/MemberManager";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
