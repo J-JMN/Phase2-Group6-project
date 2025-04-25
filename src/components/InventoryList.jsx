@@ -5,12 +5,12 @@ export function InventoryTableList({items}) {
     console.log(items) 
     return (
         <div className="d-none d-md-block ">
-            <Table responsive hover>
-                <thead className="custom-bg-primary">
+            <Table striped bordered hover size="sm">
+                <thead className="custom-bg-primary table-dark">
                     <tr className="rounded py-2">
                         <th scope="col" style={{width: "20px"}}><input type="checkbox"/></th>
                         <th scope="col">Title</th>
-                        <th scope="col">Latest Price</th>
+                        <th scope="col">Last bought at</th>
                         <th scope="col">Category</th>
                         <th scope="col">Status</th>
                         <th scope="col">Actions</th>
@@ -37,7 +37,7 @@ export function InventoryTableList({items}) {
                 </tbody>
                 <tfoot className='p-1'>
                     <tr>
-                        <td>
+                        <td colSpan="6">
                             <div className="d-flex align-items-center my-2 gap-2">
                                 <button className="btn btn-sm custom-bg-secondary custom-text-color-primary fw-bold">prev</button>
                                 <div className="d-flex flex-row "><span className="mx-1">1</span> of <span className="mx-1">1</span></div>
@@ -50,8 +50,29 @@ export function InventoryTableList({items}) {
         </div>
     )
 }
-export function InventoryCardList() {
+export function InventoryCardList({items}) {
     return(
-        <div><p>Cards</p></div>
+        <div className="d-block d-sm-none">
+            {items.map((item) => (
+                <div className="card mb-3" key={item.id}>
+                    <div className="card-body">
+                        <div className='d-flex flex-row align-items-center jusctifu-content-between'>
+                            <h2 className="card-title my-0 flex-fill">{item.title}</h2>
+                            <span className={`badge bg-${item.status? 'success' : 'warning' } p-1 `}>{item.status? 'Active':'Disabled'}</span>
+                        </div>
+                        <p className="card-text my-0"><strong>Category:</strong><div class="mx-3"/>{item.category}</p>
+                        <p className="card-text my-0"><strong>Last bought at:</strong> {item.priceList[item.priceList.length - 1].amount}</p>
+                        <div className="d-flex flex-row gap-2 mt-2">
+                            <button className='btn btn-sm btn-outline-dark gap-2 align-items-center'>
+                                <EditIcon />Manage
+                            </button>
+                            <button className='btn btn-sm btn-danger gap-2 align-items-center'>
+                                <DeleteIcon />Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            ))}
+        </div>
     )
 }
