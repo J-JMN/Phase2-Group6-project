@@ -28,7 +28,7 @@ export default function useLocalSettings() {
     setSettings(newSettings);
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(newSettings));
-      toast.success("Settings saved locally!");
+      toast.success("Settings saved successfully!");
     } catch {
       toast.error("Failed to save settings");
     }
