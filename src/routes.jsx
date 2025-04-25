@@ -3,6 +3,7 @@ import Inventory from "./pages/Inventory";
 import Login from "./pages/Login";
 import SettingsPage from "./pages/Settings";
 import ShoppingList from "./pages/ShoppingList";
+import Register from "./pages/Register";
 
 const routes = [
   {
