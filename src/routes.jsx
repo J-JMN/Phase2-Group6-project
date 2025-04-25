@@ -10,12 +10,12 @@ const routes = [
     path: "/",
     element: <App />, // App is now the layout
     children: [
-      { path: "login", element: <Login /> },
-      { path: "SignUp", element: < SignUp /> },
       { path: "home", element: <ShoppingList /> },
       { path: "inventory", element: <Inventory /> },
       { path: "settings", element: <SettingsPage /> },
     ],
   },
+  { path: "login", element: <Login /> },
+  { path: "SignUp", element: < SignUp /> },
 ];
 export default routes;
