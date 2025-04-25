@@ -18,6 +18,9 @@ body {
   width: 100vw;
   background-color: var(--base);
 }
+a{
+  text-decoration: none;
+}
 .custom-bg-primary{
   background-color: var(--primary);
 }
@@ -57,4 +60,7 @@ body {
 }
 .custom-text-color-dark{
   color: var(--dark) !important;
+}
+.custom-border-secondary {
+  border-color: var(--secondary); /* or use your hex value */
 }
