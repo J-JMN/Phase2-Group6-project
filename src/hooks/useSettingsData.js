@@ -7,7 +7,6 @@ const useSettingsData = () => {
   const [settings, setSettings] = useState({
     accountName: "",
     accountPassword: "",
-    categories: [],
     members: [{ name: "You", role: "Owner" }],
   });
 
@@ -23,7 +22,6 @@ const useSettingsData = () => {
       setSettings({
         accountName: data.accountName || "",
         accountPassword: data.accountPassword || "",
-        categories: data.categories || [],
         members: data.members || [{ name: "You", role: "Owner" }],
       });
     } catch {

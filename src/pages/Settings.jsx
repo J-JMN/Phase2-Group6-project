@@ -13,7 +13,6 @@ const SettingsPage = () => {
     const updated = {
       accountName: values.accountName,
       accountPassword: values.accountPassword,
-      categories: settings.categories,
       members: settings.members,
     };
     saveSettings(updated);
@@ -39,12 +38,6 @@ const SettingsPage = () => {
           onSubmit={handleSubmit}
         />
 
-        <CategoryManager
-          categories={settings.categories}
-          setCategories={(cats) =>
-            saveSettings({ ...settings, categories: cats })
-          }
-        />
 
         <MemberManager
           members={settings.members}
