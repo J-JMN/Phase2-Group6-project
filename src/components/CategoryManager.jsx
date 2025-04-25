@@ -1,36 +1,50 @@
-import { useState } from "react";
-import useCategories from "../hooks/useCategories";
+import React, { useState } from "react";
 
 const CategoryManager = ({ categories, setCategories }) => {
   const [newCategory, setNewCategory] = useState("");
-  const { addCategory, removeCategory } = useCategories(categories, setCategories);
+
+  const addCategory = () => {
+    const name = newCategory.trim();
+    if (!name) return;
+    if (categories.includes(name)) return;
+    setCategories([...categories, name]);
+    setNewCategory("");
+  };
 
   return (
-    <div className="w-100 my-4">
-      <label>Categories</label>
-      <div className="category-input-group">
-        <input
-          value={newCategory}
-          onChange={(e) => setNewCategory(e.target.value)}
-          className="form-control my-2"
-          placeholder="Add category"
-        />
-        <button type="button" onClick={() => { addCategory(newCategory); setNewCategory(""); }} className="btn btn-sm btn-primary custom-bg-primary">
-          Add
-        </button>
-      </div>
+    <div className="my-4">
+      <label className="form-label">Categories</label>
+
       <div className="w-100">
-        {categories.map((cat, i) => (
-          <div className="d-flex flex-row justify-content-between w-100 align-items-center border p-1 rounded my-1" key={i}>
-            <span>{cat}</span>
-            <button type="button" onClick={() => removeCategory(cat)} className="btn btn-sm btn-secondary custom-bg-secondary">
-              Remove
-            </button>
+        {categories.map((category, i) => (
+          <div
+            key={i}
+            className="d-flex justify-content-between align-items-center border p-2 rounded my-1"
+          >
+            {category}
           </div>
         ))}
+      </div>
+
+      <div className="d-flex mt-2">
+        <input
+          type="text"
+          className="form-control me-2"
+          placeholder="Add category"
+          value={newCategory}
+          onChange={(e) => setNewCategory(e.target.value)}
+        />
+        <button
+          type="button"
+          className="btn btn-sm btn-secondary custom-bg-secondary"
+          onClick={addCategory}
+        >
+          Add
+        </button>
       </div>
     </div>
   );
 };
 
 export default CategoryManager;
+
