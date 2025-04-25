@@ -1,9 +1,9 @@
 import AuthLayout from "../components/Auth/AuthLayout";
-import RegisterForm from "../components/Auth/RegisterForm";
+import SignUpForm from "../components/Auth/SignUpForm";
 import React from "react";
 import { Container, Row, Col, CloseButton } from "react-bootstrap";
 
-export default function Register() {
+export default function SignUp(){
   return (
     <AuthLayout>
       <Container fluid className="h-100">

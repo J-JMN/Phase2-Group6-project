@@ -14,7 +14,7 @@ const RegisterSchema = Yup.object().shape({
     .required("Confirm Password is required"),
 });
 
-export default function RegisterForm() {
+export default function SignUpForm() {
   return (
     <Container className="mt-5">
       <Formik
