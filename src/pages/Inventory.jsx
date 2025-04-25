@@ -2,9 +2,18 @@ import React, { useState } from 'react'
 import { AddIcon } from '../components/icons';
 import { InventoryTableList } from '../components/InventoryList';
 import Button from 'react-bootstrap/Button';
+import useFetch from '../hooks/useFetch';
 
 function Inventory() {
   const [searchQuery,setsearchQuery]=useState('');
+  const { data, loading, error } = useFetch('http://localhost:3000/inventory');
+  if(loading)  {
+    return <p>Loading...</p>
+  }
+  if(error)  {
+    return <p>An Error Occured</p>
+  }
+  console.log(data)
   return (
     <div className='p-4'>
       <div className="d-flex flex-column flex-md-row justify-content-between my-2">
@@ -16,7 +25,7 @@ function Inventory() {
               </div>
           </div>
       </div>
-      <InventoryTableList />
+      {data !== null && (<InventoryTableList items={data}/>)}
     </div>
   )
 }
