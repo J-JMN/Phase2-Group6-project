@@ -10,16 +10,18 @@ const ItemSchema = Yup.object().shape({
   status: Yup.boolean().required('Required'),
 });
 
-function InventoryForm({handleSubmit,submitBtnRef}) {
+function InventoryForm({handleSubmit,submitBtnRef, initialValues }) {
+  const defaultValues = {
+    title: '',
+    category: '',
+    description: '',
+    price: '',
+    status: true,
+  };
   return (
     <Formik
-      initialValues={{
-        title: '',
-        category: '',
-        description: '',
-        price: '',
-        status: true,
-      }}
+      initialValues={initialValues || defaultValues}
+      enableReinitialize
       validationSchema={ItemSchema}
       onSubmit={async (values) => {
         values.priceList = [{

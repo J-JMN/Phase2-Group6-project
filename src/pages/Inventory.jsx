@@ -49,9 +49,9 @@ function Inventory() {
   console.log(data);
 
   return (
-    <div className='p-4'>
+    <div className='px-4 py-2'>
       <div className="d-flex flex-column flex-md-row justify-content-between my-2">
-          <h1 className="custom-text-color-primary fw-bold fs-4 fs-md-2">Inventory</h1>
+          <h1 className="custom-text-color-primary fw-bold fs-4">Inventory</h1>
           <div className="d-flex flex-row gap-2 align-items-center">
               <input type="search" placeholder='search items' className='form-control form-control-sm' value={searchQuery} onChange={(e)=>{setsearchQuery(e.target.value)}}/>
               <div className="d-flex flex-row gap-2 align-items-sm-start align-items-center">

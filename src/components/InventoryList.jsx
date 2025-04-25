@@ -5,7 +5,7 @@ export function InventoryTableList({items}) {
     console.log(items) 
     return (
         <div className="d-none d-md-block ">
-            <Table striped bordered hover size="sm">
+            <Table striped bordered hover size="sm" className='shadow rounded'>
                 <thead className="custom-bg-primary table-dark">
                     <tr className="rounded py-2">
                         <th scope="col" style={{width: "20px"}}><input type="checkbox"/></th>
@@ -16,7 +16,7 @@ export function InventoryTableList({items}) {
                         <th scope="col">Actions</th>
                     </tr>
                 </thead>
-                <tbody className='shadow-sm rounded'>
+                <tbody >
                     {items?.map((item)=>{
                         return(
                             <tr key={item?.id}>
