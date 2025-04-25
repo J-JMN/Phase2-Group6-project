@@ -1,56 +1,105 @@
 {
-    "inventory": [
-      {
-        "id": "1",
-        "title": "Tissue",
-        "category": "cleaning",
-        "priceList": [
-          {
-            "id": "1",
-            "amount": 100,
-            "date": "12-04-2025"
-          }
-        ],
-        "status": true
-      }
-    ],
-    "account": {
-      "name": "Group 6",
-      "password": "password",
-      "members": [
+  "inventory": [
+    {
+      "id": "1",
+      "title": "Tissue",
+      "category": "cleaning",
+      "description": "cleaning",
+      "priceList": [
         {
-          "name": "dennis",
-          "email": "dennissammy77@gmail.com",
-          "role": "owner",
-          "id": "1"
+          "id": "1",
+          "amount": 100,
+          "date": "12-04-2025"
         }
       ],
-      "categories": ["cleaning", "groceries"],
       "status": true
     },
-    "templates": [
+    {
+      "id": "8221",
+      "title": "Soap",
+      "category": "toiletries",
+      "description": "Always buy 4 pieces",
+      "price": 123,
+      "status": true,
+      "priceList": [
+        {
+          "id": "1",
+          "amount": 123,
+          "date": "2025-04-25T07:36:12.105Z"
+        }
+      ]
+    },
+    {
+      "id": "aeba",
+      "title": "Detergent",
+      "category": "toiletries",
+      "description": "sa",
+      "price": 123,
+      "status": true,
+      "priceList": [
+        {
+          "id": "1",
+          "amount": 123,
+          "date": "2025-04-25T07:38:20.372Z"
+        }
+      ]
+    },
+    {
+      "id": "1efe",
+      "title": "Broom",
+      "category": "cleaning",
+      "description": "asasa",
+      "price": 123,
+      "status": true,
+      "priceList": [
+        {
+          "id": "1",
+          "amount": 123,
+          "date": "2025-04-25T07:41:40.605Z"
+        }
+      ]
+    }
+  ],
+  "account": {
+    "name": "Group 6",
+    "password": "password",
+    "members": [
       {
-        "id": "1",
-        "title": "March Shopping",
-        "description": "Buy everything",
-        "budget": 2000,
-        "spent": 3000,
-        "date": "12-04-2025",
-        "items": [
-          {
-            "id": "1",
-            "quantity": 10,
-            "price": 100,
-            "addedBy": "1"
-          },
-          {
-            "id": "2",
-            "quantity": 1,
-            "price": 500,
-            "addedBy": "1"
-          }
-        ],
-        "status": true
+        "name": "dennis",
+        "email": "dennissammy77@gmail.com",
+        "role": "owner",
+        "id": "1"
       }
-    ]
-  }
+    ],
+    "categories": [
+      "cleaning",
+      "groceries"
+    ],
+    "status": true
+  },
+  "templates": [
+    {
+      "id": "1",
+      "title": "March Shopping",
+      "description": "Buy everything",
+      "budget": 2000,
+      "spent": 3000,
+      "date": "12-04-2025",
+      "items": [
+        {
+          "id": "1",
+          "quantity": 10,
+          "price": 100,
+          "addedBy": "1"
+        },
+        {
+          "id": "2",
+          "quantity": 1,
+          "price": 500,
+          "addedBy": "1"
+        }
+      ],
+      "status": true
+    }
+  ]
+}
