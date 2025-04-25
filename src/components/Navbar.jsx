@@ -6,9 +6,7 @@ function Navbar() {
     return (
         <div className='d-flex flex-column flex-md-row justify-content-between align-items-center overflow-sm-hidden px-4 pt-4'>
             <NavLink to="/" className="text-decoration-none">
-                <h1 className='custom-text-color-primary fw-bold text-xl'>
-                <span className='custom-text-color-secondary'>Shop</span>Mate
-                </h1>
+                <h1 className='custom-text-color-primary fw-bold text-xl'> <span className='custom-text-color-secondary'>Shop</span>Mate </h1>
             </NavLink>
 
             <div className='d-flex flex-row gap-4 align-items-center p-2 px-4 fs-5'>
