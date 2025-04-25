@@ -1,7 +1,7 @@
 :root{
   --primary: #20412E; 
   --secondary: #E5C15E; 
-  --tertiary: #040000; 
+  --dark: #040000; 
   --base: #F8FFF8; 
   --white: #FFFFFF; 
 }
@@ -35,4 +35,27 @@ body {
 }
 .custom-text-color-tertiary{
   color: var(--tertiary);
+=======
+  background-color: var(--base) !important;
+}
+.custom-bg-primary{
+  background-color: var(--primary) !important;
+}
+.custom-bg-secondary{
+  background-color: var(--secondary) !important;
+}
+.custom-bg-dark{
+  background-color: var(--dark) !important;
+}
+.custom-bg-base{
+  background-color: var(--base) !important;
+}
+.custom-text-color-primary{
+  color: var(--primary) !important;
+}
+.custom-text-color-secondary{
+  color: var(--secondary) !important;
+}
+.custom-text-color-dark{
+  color: var(--dark) !important;
 }
