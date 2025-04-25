@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { AddIcon } from '../components/icons';
 import { InventoryTableList } from '../components/InventoryList';
+import Button from 'react-bootstrap/Button';
 
 function Inventory() {
   const [searchQuery,setsearchQuery]=useState('');
@@ -11,7 +12,7 @@ function Inventory() {
           <div className="d-flex flex-column flex-md-row gap-2 align-items-center">
               <input type="search" placeholder='search items' className='form-control form-control-sm' value={searchQuery} onChange={(e)=>{setsearchQuery(e.target.value)}}/>
               <div className="d-flex flex-row gap-2 align-items-sm-start align-items-center">
-                  <button className='btn btn-sm custom-bg-secondary custom-text-color-primary fw-bold d-flex flex-row align-items-center gap-2' ><AddIcon/>Add</button>
+                  <button className='btn btn-sm btn-primary custom-bg-secondary custom-text-color-primary fw-bold d-flex flex-row align-items-center gap-2' ><AddIcon/>Add</button>
               </div>
           </div>
       </div>
@@ -20,4 +21,4 @@ function Inventory() {
   )
 }
 
-export default Inventory
+export default Inventory;
