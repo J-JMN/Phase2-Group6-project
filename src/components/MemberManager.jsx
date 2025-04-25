@@ -1,4 +1,4 @@
-import useMembers from "../hooks/ useMembers";
+import useMembers from "../hooks/useMembers";
 const MemberManager = ({ members, setMembers }) => {
   const {addMember, removeMember} = useMembers(members, setMembers);
 

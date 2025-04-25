@@ -13,7 +13,7 @@ export default function SignUp(){
               <CloseButton onClick={() => window.history.back()} />
             </div>
             <div className="my-auto w-100">
-              <RegisterForm />
+              <SignUpForm />
             </div>
           </Col>
 
