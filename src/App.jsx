@@ -1,16 +1,16 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import routes from './routes';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { Outlet } from "react-router-dom";
+import Navbar from './components/Navbar';
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        {routes.map((r, index) => (
-          <Route key={index} path={r.path} element={r.element} />
-        ))}
-      </Routes>
-    </Router>
+    <div>
+      <Navbar />
+      <Outlet />
+      {/* Toastify container */}
+      <ToastContainer position="bottom-right" autoClose={2000} />
+    </div>
   );
 }
 
