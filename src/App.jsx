@@ -3,7 +3,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Outlet } from "react-router-dom";
 import Navbar from './components/Navbar';
 
-function App() {
+export default function App() {
   return (
     <div>
       <Navbar />
@@ -12,6 +12,4 @@ function App() {
       <ToastContainer position="bottom-right" autoClose={2000} />
     </div>
   );
-}
-
-export default App;
+};
