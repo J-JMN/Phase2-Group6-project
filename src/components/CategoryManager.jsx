@@ -6,29 +6,29 @@ const CategoryManager = ({ categories, setCategories }) => {
   const { addCategory, removeCategory } = useCategories(categories, setCategories);
 
   return (
-    <div className="form-group">
+    <div className="w-100 my-4">
       <label>Categories</label>
       <div className="category-input-group">
         <input
           value={newCategory}
           onChange={(e) => setNewCategory(e.target.value)}
-          className="input-field"
+          className="form-control my-2"
           placeholder="Add category"
         />
-        <button type="button" onClick={() => { addCategory(newCategory); setNewCategory(""); }} className="btn">
+        <button type="button" onClick={() => { addCategory(newCategory); setNewCategory(""); }} className="btn btn-sm btn-primary custom-bg-primary">
           Add
         </button>
       </div>
-      <ul className="category-list">
+      <div className="w-100">
         {categories.map((cat, i) => (
-          <li key={i} className="category-item">
-            {cat}
-            <button type="button" onClick={() => removeCategory(cat)} className="remove-btn">
+          <div className="d-flex flex-row justify-content-between w-100 align-items-center border p-1 rounded my-1" key={i}>
+            <span>{cat}</span>
+            <button type="button" onClick={() => removeCategory(cat)} className="btn btn-sm btn-secondary custom-bg-secondary">
               Remove
             </button>
-          </li>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 };

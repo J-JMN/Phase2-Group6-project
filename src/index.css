@@ -16,7 +16,7 @@
 body {
   height: 100vh;
   width: 100vw;
-  background-color: var(--base);
+  background-color: var(--white);
 }
 a{
   text-decoration: none;
@@ -63,4 +63,27 @@ a{
 }
 .custom-border-secondary {
   border-color: var(--secondary); /* or use your hex value */
+}
+.w-md-50{
+  width: 50% !important;
+}
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  .w-md-50{
+    width: 100% !important;
+  }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  /* .w-md-50{
+    width: 100% !important;
+  } */
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  /* .w-md-50{
+    width: 100% !important;
+  } */
 }
