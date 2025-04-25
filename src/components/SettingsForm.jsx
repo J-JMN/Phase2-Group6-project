@@ -18,7 +18,7 @@ const SettingsForm = ({ initialValues, onSubmit }) => (
         <label>
           Account Name <span className="required">*</span>
         </label>
-        <Field name="accountName" className="input-field" />
+        <Field name="accountName" className="form-control mb-2" />
         <ErrorMessage name="accountName" component="div" className="error-message" />
       </div>
 
@@ -26,11 +26,11 @@ const SettingsForm = ({ initialValues, onSubmit }) => (
         <label>
           Password <span className="required">*</span>
         </label>
-        <Field name="accountPassword" type="password" className="input-field" />
+        <Field name="accountPassword" type="password" className="form-control mb-2" />
         <ErrorMessage name="accountPassword" component="div" className="error-message" />
       </div>
 
-      <button type="submit" className="save-btn">Save Settings</button>
+      <button type="submit" className="btn btn-primary btn-sm custom-bg-primary">Save Settings</button>
     </Form>
   </Formik>
 );
