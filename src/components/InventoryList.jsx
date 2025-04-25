@@ -19,12 +19,12 @@ export function InventoryTableList({items}) {
                 <tbody className='shadow-sm rounded'>
                     {items?.map((item)=>{
                         return(
-                            <tr key={item.id}>
+                            <tr key={item?.id}>
                                 <td><input type="checkbox" className="row-checkbox"/></td>
-                                <td>{item.title}</td>
-                                <td>{item.priceList[item.priceList.length - 1].amount}</td>
-                                <td>{item.category}</td>
-                                <td><span className={`badge bg-${item.status? 'success' : 'warning' } p-1`}>{item.status? 'Active':'Disabled'}</span></td>
+                                <td style={{width: "10vw"}}>{item?.title}</td>
+                                <td style={{width: "10vw"}}>{item?.priceList[item?.priceList.length - 1].amount}</td>
+                                <td style={{width: "10vw"}}>{item?.category}</td>
+                                <td style={{width: "10vw"}}><span className={`badge bg-${item?.status? 'success' : 'warning' } p-1`}>{item?.status? 'Active':'Disabled'}</span></td>
                                 <td style={{width:'200px'}}>
                                     <div className='d-flex flex-row gap-2'>
                                         <button className='btn btn-sm btn-outline-dark gap-2 align-items-center'><EditIcon/>Manage</button>
@@ -53,15 +53,15 @@ export function InventoryTableList({items}) {
 export function InventoryCardList({items}) {
     return(
         <div className="d-block d-sm-none">
-            {items.map((item) => (
-                <div className="card mb-3" key={item.id}>
+            {items?.map((item) => (
+                <div className="card mb-3" key={item?.id}>
                     <div className="card-body">
                         <div className='d-flex flex-row align-items-center jusctifu-content-between'>
-                            <h2 className="card-title my-0 flex-fill">{item.title}</h2>
-                            <span className={`badge bg-${item.status? 'success' : 'warning' } p-1 `}>{item.status? 'Active':'Disabled'}</span>
+                            <h2 className="card-title my-0 flex-fill">{item?.title}</h2>
+                            <span className={`badge bg-${item?.status? 'success' : 'warning' } p-1 `}>{item?.status? 'Active':'Disabled'}</span>
                         </div>
-                        <p className="card-text my-0"><strong>Category:</strong>{item.category}</p>
-                        <p className="card-text my-0"><strong>Last bought at:</strong> {item.priceList[item.priceList.length - 1].amount}</p>
+                        <p className="card-text my-0"><strong>Category:</strong>{item?.category}</p>
+                        <p className="card-text my-0"><strong>Last bought at:</strong> {item?.priceList[item?.priceList.length - 1].amount}</p>
                         <div className="d-flex flex-row gap-2 mt-2">
                             <button className='btn btn-sm btn-outline-dark gap-2 align-items-center'>
                                 <EditIcon />Manage
