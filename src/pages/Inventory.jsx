@@ -3,7 +3,7 @@ import { AddIcon } from '../components/icons';
 import { InventoryCardList, InventoryTableList } from '../components/InventoryList';
 import useFetch from '../hooks/useFetch';
 import usePost from '../hooks/usePost';
-import ModalComponent from '../components/modal';
+import ModalComponent from '../components/Modal';
 import InventoryForm from '../components/forms/InventoryForm';
 import { toast } from 'react-toastify';
 

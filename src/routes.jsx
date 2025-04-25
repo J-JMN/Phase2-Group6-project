@@ -11,7 +11,7 @@ const routes = [
     element: <App />, // App is now the layout
     children: [
       { path: "login", element: <Login /> },
-      { path: "SignUp", element: < SignUp />},
+      { path: "SignUp", element: < SignUp /> },
       { path: "home", element: <ShoppingList /> },
       { path: "inventory", element: <Inventory /> },
       { path: "settings", element: <SettingsPage /> },
