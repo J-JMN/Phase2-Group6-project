@@ -2,6 +2,8 @@ import { Formik, Field, ErrorMessage } from "formik";
 import { Form, Button, FloatingLabel, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import * as Yup from "yup";
+import Login from "../../pages/Login";
+import Register from "../../pages/Register";
 
 const LoginSchema = Yup.object().shape({
   username: Yup.string().required("Username is required"),

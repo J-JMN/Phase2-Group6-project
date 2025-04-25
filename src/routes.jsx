@@ -8,23 +8,14 @@ import Register from "./pages/Register";
 const routes = [
   {
     path: "/",
-    element: <Login />,
-  },
-  {
-    path: "/register",
-    element: <Register />,
-  },
-  {
-    path: "/home",
-    element: <ShoppingList />,
-  },
-  {
-    path: "/inventory",
-    element: <Inventory />,
-  },
-  {
-    path: "/settings",
-    element: <SettingsPage />,
+    element: <App />, // App is now the layout
+    children: [
+      { path: "login", element: <Login /> },
+      { path: "Register", element: <Register /> },
+      { path: "home", element: <ShoppingList /> },
+      { path: "inventory", element: <Inventory /> },
+      { path: "settings", element: <SettingsPage /> },
+    ],
   },
 ];
 

@@ -1,9 +1,9 @@
 import AuthLayout from "../components/Auth/AuthLayout";
-import RegisterForm from "../components/Auth/RegisterForm";
+import SignUpForm from "../components/Auth/SignUpForm";
 import React from "react";
 import { Container, Row, Col, CloseButton } from "react-bootstrap";
 
-export default function Register() {
+export default function SignUp(){
   return (
     <AuthLayout>
       <Container fluid className="h-100">
@@ -13,7 +13,7 @@ export default function Register() {
               <CloseButton onClick={() => window.history.back()} />
             </div>
             <div className="my-auto w-100">
-              <SignUpForm />
+              <RegisterForm />
             </div>
           </Col>
 
