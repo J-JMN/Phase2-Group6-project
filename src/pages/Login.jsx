@@ -1,4 +1,5 @@
 import AuthLayout from "../components/Auth/AuthLayout";
+import RegisterForm from "../components/Auth/RegisterForm";
 import LoginForm from "../components/Auth/LoginForm";
 import React from "react";
 import {
