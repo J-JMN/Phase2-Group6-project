@@ -38,11 +38,3 @@
   margin-top: 0.25rem;
 }
 
-@media (max-width: 768px) {
-  .loginContainer {
-    grid-template-columns: 1fr;
-  }
-  .loginForm {
-    padding: 2rem;
-  }
-}

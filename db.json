@@ -1,0 +1,56 @@
+{
+    "inventory": [
+      {
+        "id": "1",
+        "title": "Tissue",
+        "category": "cleaning",
+        "priceList": [
+          {
+            "id": "1",
+            "amount": 100,
+            "date": "12-04-2025"
+          }
+        ],
+        "status": true
+      }
+    ],
+    "account": {
+      "name": "Group 6",
+      "password": "password",
+      "members": [
+        {
+          "name": "dennis",
+          "email": "dennissammy77@gmail.com",
+          "role": "owner",
+          "id": "1"
+        }
+      ],
+      "categories": ["cleaning", "groceries"],
+      "status": true
+    },
+    "templates": [
+      {
+        "id": "1",
+        "title": "March Shopping",
+        "description": "Buy everything",
+        "budget": 2000,
+        "spent": 3000,
+        "date": "12-04-2025",
+        "items": [
+          {
+            "id": "1",
+            "quantity": 10,
+            "price": 100,
+            "addedBy": "1"
+          },
+          {
+            "id": "2",
+            "quantity": 1,
+            "price": 500,
+            "addedBy": "1"
+          }
+        ],
+        "status": true
+      }
+    ]
+  }

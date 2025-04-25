@@ -15,7 +15,7 @@ Implements family-based authentication for ShopMate using a shared password syst
 - **Global State**: Context API for authentication state management
 - **Protected Routes**: React Router integration for route protection
 - **Notifications**: Toast messages for user feedback
-- **Responsive Design**: Mobile-first layout with CSS Grid
+- **Responsive Design**: Mobile-first layout with react boostrap
 
 ## Dependencies
 ```bash
