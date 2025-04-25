@@ -6,14 +6,16 @@ import useFetch from '../hooks/useFetch';
 
 function Inventory() {
   const [searchQuery,setsearchQuery]=useState('');
-  const { data, loading, error } = useFetch('http://localhost:3000/inventory');
+  let { data, loading, error } = useFetch('http://localhost:3000/inventory');
+  
   if(loading)  {
     return <p>Loading...</p>
   }
   if(error)  {
     return <p>An Error Occured</p>
   }
-  console.log(data)
+  data = data?.filter(item => item?.title.toLowerCase().includes(searchQuery?.toLowerCase()))
+  console.log(data);
   return (
     <div className='p-4'>
       <div className="d-flex flex-column flex-md-row justify-content-between my-2">

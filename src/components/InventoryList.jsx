@@ -60,7 +60,7 @@ export function InventoryCardList({items}) {
                             <h2 className="card-title my-0 flex-fill">{item.title}</h2>
                             <span className={`badge bg-${item.status? 'success' : 'warning' } p-1 `}>{item.status? 'Active':'Disabled'}</span>
                         </div>
-                        <p className="card-text my-0"><strong>Category:</strong><div class="mx-3"/>{item.category}</p>
+                        <p className="card-text my-0"><strong>Category:</strong>{item.category}</p>
                         <p className="card-text my-0"><strong>Last bought at:</strong> {item.priceList[item.priceList.length - 1].amount}</p>
                         <div className="d-flex flex-row gap-2 mt-2">
                             <button className='btn btn-sm btn-outline-dark gap-2 align-items-center'>
