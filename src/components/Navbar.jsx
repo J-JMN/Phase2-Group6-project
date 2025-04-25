@@ -42,13 +42,22 @@ function Navbar() {
                 >
                     Inventory
                 </NavLink>
-                <div class="d-flex align-items-center gap-2">
-                    <div class="rounded-circle bg-warning" style={{width: "40px",height: "40px"}}></div>
-                    <div class="d-flex flex-column">
-                        <span class="fw-bold text-dark">Dennis</span>
-                        <span class="text-muted small">owner</span>
+                <NavLink
+                    to="/settings"
+                    className={({ isActive }) =>
+                        `custom-text-color-primary fw-bold pb-1 ${
+                            isActive ? 'border-bottom border-2 custom-border-secondary' : ''
+                        }`
+                    }
+                >
+                    <div class="d-flex align-items-center gap-2">
+                        <div class="rounded-circle bg-warning" style={{width: "40px",height: "40px"}}></div>
+                        <div class="d-flex flex-column">
+                            <span class="fw-bold text-dark">User</span>
+                            <span class="text-muted small">owner</span>
+                        </div>
                     </div>
-                </div>
+                </NavLink>
             </div>
         </div>
     )
