@@ -1,12 +1,40 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Row, Col, Form, Button, Container } from 'react-bootstrap';
 import { Table } from 'react-bootstrap';
 import useFetch from '../hooks/useFetch';
-import { AddIcon, DeleteIcon, EditIcon } from '../components/icons'
+import { AddIcon, DeleteIcon, EditIcon } from '../components/icons';
+import ModalComponent from '../components/Modal';
+import { toast } from 'react-toastify';
+
 
 const ShoppingList = () => {
   const [shoppingList, setShoppingList] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+
+  /**Manage Items Modal */
+  const [showModal, setShowModal] = useState(false);
+  const handleShowModal = () => setShowModal(true);
+  const handleCloseModal = () => setShowModal(false);
+  const formikSubmitRef = useRef();
+
+   const handleSubmit = async(data) => {
+      try {
+        toast.info('Saving item...', { autoClose: 1000 });
+        await putData(data,editItemModal?.id); // this now returns data or throws  
+        await refetch();      
+        handleCloseModal();
+      } catch (error) {
+        toast.error(`Submission failed: ${error.message || 'Unknown error'}`);
+      }
+    };
+
+  const handleSaveChanges = async() => {
+      console.log('saved clicked')
+      if (formikSubmitRef.current) {
+        formikSubmitRef.current(); // trigger Formik form submission
+      };
+    };
+
   const [showForm, setShowForm] = useState(false);
   const [options, setOptions] = useState({
     titles: [],
@@ -144,41 +172,7 @@ const ShoppingList = () => {
       {showForm && (
         <Row className="mb-4">
           <Col xs="auto">
-            <form id="addItemForm" onSubmit={handleSubmit} className="d-flex gap-2">
-              <select name="title" value={formData.title} onChange={handleChange} className="border p-2 rounded" required>
-                <option value="" disabled>Select Item</option>
-                {options.titles.map(title => (
-                  <option key={title} value={title}>{title}</option>
-                ))}
-              </select>
-              <input name="quantity" value={formData.quantity} onChange={handleChange} type="number" placeholder="Qty" className="border p-2 rounded" required />
-              <input name="price" value={formData.price} onChange={handleChange} type="number" placeholder="Price" className="border p-2 rounded" required />
-              <select name="category" value={formData.category} onChange={handleChange} className="border p-2 rounded" required>
-                <option value="" disabled>Select Category</option>
-                {options.categories.map(category => (
-                  <option key={category} value={category}>{category}</option>
-                ))}
-              </select>
-              <select name="addedBy" value={formData.addedBy} onChange={handleChange} className="border p-2 rounded" required>
-                <option value="" disabled>Added By</option>
-                {options.addedBy.map(user => (
-                  <option key={user} value={user}>{user}</option>
-                ))}
-              </select>
-
-              <select
-                name="status"
-                value={formData.status === true ? "true" : formData.status === false ? "false" : ""}
-                onChange={handleChange}
-                className="border p-2 rounded"
-                required
-              >
-                <option value="" disabled>Status</option>
-                <option value="true">Active</option>
-                <option value="false">Used</option>
-              </select>
-              <Button type="submit" variant="success" size="sm">Save</Button>
-            </form>
+            
 
           </Col>
         </Row>
@@ -250,6 +244,49 @@ const ShoppingList = () => {
           </div>
         ))}
       </div>
+      <ModalComponent 
+        show={showModal} 
+        handleClose={handleCloseModal}
+        handleAction={handleSaveChanges}
+        header={'Add Item to list'}
+      >
+        {/* <InventoryForm handleSubmit={handleSubmit} submitBtnRef={formikSubmitRef}/> New Item Form */}
+        <form id="addItemForm" onSubmit={handleSubmit} className="d-flex gap-2">
+              <select name="title" value={formData.title} onChange={handleChange} className="border p-2 rounded" required>
+                <option value="" disabled>Select Item</option>
+                {options.titles.map(title => (
+                  <option key={title} value={title}>{title}</option>
+                ))}
+              </select>
+              <input name="quantity" value={formData.quantity} onChange={handleChange} type="number" placeholder="Qty" className="border p-2 rounded" required />
+              <input name="price" value={formData.price} onChange={handleChange} type="number" placeholder="Price" className="border p-2 rounded" required />
+              <select name="category" value={formData.category} onChange={handleChange} className="border p-2 rounded" required>
+                <option value="" disabled>Select Category</option>
+                {options.categories.map(category => (
+                  <option key={category} value={category}>{category}</option>
+                ))}
+              </select>
+              <select name="addedBy" value={formData.addedBy} onChange={handleChange} className="border p-2 rounded" required>
+                <option value="" disabled>Added By</option>
+                {options.addedBy.map(user => (
+                  <option key={user} value={user}>{user}</option>
+                ))}
+              </select>
+
+              <select
+                name="status"
+                value={formData.status === true ? "true" : formData.status === false ? "false" : ""}
+                onChange={handleChange}
+                className="border p-2 rounded"
+                required
+              >
+                <option value="" disabled>Status</option>
+                <option value="true">Active</option>
+                <option value="false">Used</option>
+              </select>
+              <Button type="submit" variant="success" size="sm">Save</Button>
+          </form>
+      </ModalComponent>
     </div>
   );
 
