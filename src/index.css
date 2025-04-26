@@ -16,7 +16,7 @@
 body {
   height: 100vh;
   width: 100vw;
-  background-color: var(--white);
+  background-color: var(--base);
 }
 a{
   text-decoration: none;
@@ -65,7 +65,7 @@ a{
   color: var(--dark) !important;
 }
 .custom-border-secondary {
-  border-color: var(--secondary); /* or use your hex value */
+  border-color: var(--secondary) !important; /* or use your hex value */
 }
 .w-md-50{
   width: 50% !important;

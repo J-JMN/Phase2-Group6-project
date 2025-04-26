@@ -76,9 +76,9 @@ function Inventory() {
       <div className="d-flex flex-column flex-md-row justify-content-between my-2">
           <h1 className="display-6 custom-text-color-primary fw-bold">Inventory</h1>
           <div className="d-flex flex-row gap-2 align-items-center">
-              <input type="search" placeholder='search items' className='form-control form-control-sm' value={searchQuery} onChange={(e)=>{setsearchQuery(e.target.value)}}/>
+              <input type="search" placeholder='search items' className='form-control form-control-sm shadow-sm' value={searchQuery} onChange={(e)=>{setsearchQuery(e.target.value)}}/>
               <div className="d-flex flex-row gap-2 align-items-sm-start align-items-center">
-                  <button className='btn btn-sm btn-primary custom-bg-secondary custom-text-color-primary fw-bold d-flex flex-row align-items-center gap-2' onClick={handleShowModal} ><AddIcon/>Add</button>
+                  <button className='btn btn-sm custom-bg-secondary custom-text-color-primary fw-bold d-flex flex-row align-items-center gap-2' onClick={handleShowModal} ><AddIcon/>Add</button>
               </div>
           </div>
       </div>
