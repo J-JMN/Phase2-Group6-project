@@ -8,9 +8,9 @@ import SignUp from "./pages/SignUp";
 const routes = [
   {
     path: "/",
-    element: <Login />, // App is now the layout
+    element: <App />, // App is now the layout
     children: [
-      { path: "home", element: <ShoppingList /> },
+      { path: "shop", element: <ShoppingList /> },
       { path: "inventory", element: <Inventory /> },
       { path: "settings", element: <SettingsPage /> },
     ],
