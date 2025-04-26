@@ -60,18 +60,25 @@
       ]
     }
   ],
-  "account": {
-    "accountName": "Group 6",
-    "accountPassword": "password",
-    "members": [
-      {
-        "name": "dennis",
-        "email": "dennissammy77@gmail.com",
-        "role": "owner",
-        "id": "1"
-      }
-    ]
-  },
+  "accounts": [
+    {
+      "accountName": "Group 6",
+      "accountPassword": "password",
+      "members": [
+        {
+          "name": "Dennis",
+          "email": "dennissammy77@gmail.com",
+          "role": "owner"
+        },
+        {
+          "name": "Sammy",
+          "email": "sammymusembi727@gmail.com",
+          "role": "member"
+        }
+      ],
+      "id": "1"
+    }
+  ],
   "templates": [
     {
       "id": "1",

@@ -3,6 +3,10 @@ import { Formik, Field, ErrorMessage } from "formik";
 import { Link, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { useState } from "react";
+import usePut from "../../hooks/usePUT";
+import useFetch from "../../hooks/useFetch";
+import { toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 
 const SignUpSchema = Yup.object().shape({
   name: Yup.string().required("Name is required"),
@@ -18,33 +22,44 @@ const SignUpSchema = Yup.object().shape({
 export default function SignUpForm() {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const { putData } = usePut('http://localhost:3000/accounts');
+  const { data: accountData } = useFetch('http://localhost:3000/accounts/1');
 
   const handleSubmit = async (values, { setSubmitting }) => {
     setError(null);
     try {
-      //fetching data and error handling
-      const response = await fetch("http://localhost:5173/api/auth/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: values.name,
-          email: values.email,
-          password: values.password,
-        }),
+      const {password,email,confirmPassword,name} = values
+      // check if password is correct
+      if(password !== confirmPassword){
+        console.error('The passwords do not match');
+        throw new Error('The passwords do not match')
+      };
+      // check if username already exists
+      const existingMember = accountData?.members.find((member)=> member.email === email || member.name === name);
+      if(existingMember){
+        throw new Error('An account with this email or name already exists!');
+      };
+      // update member list
+      accountData.members.push({
+        name,
+        email,
+        role: accountData.members.length > 0 ? 'member' : 'owner'
       });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || "Signup failed");
-      }
-
-      //successfull login
+      const result = await putData(accountData,accountData?.id);
+      // store data in session storage for easier handling
+      // Store user in localstorage
+      localStorage.setItem("signedInUser", JSON.stringify({
+        name,
+        email,
+        role: accountData.members.length > 0 ? 'member' : 'owner'
+      }));
       //redirect
-      console.log("Signup successful:", data);
-      navigate("/login"); 
+      console.log("Signup successful:", result);
+      toast.success("Signup successful, Welcome!!");
+      // Redirect home page
+      setTimeout(()=>{
+        navigate("/home");
+      },2000);
     } catch (err) {
       console.error("Signup error:", err);
       setError(err.message || "Signup failed. Please try again.");
@@ -198,6 +213,7 @@ export default function SignUpForm() {
           </Form>
         )}
       </Formik>
+      <ToastContainer position="bottom-right" autoClose={2000} />
     </>
   );
 }

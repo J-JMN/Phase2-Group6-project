@@ -12,6 +12,8 @@ import { Formik, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
 import useFetch from "../hooks/useFetch";
+import { ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 export default function Login() {
   const [rememberMe, setRememberMe] = useState(false);
@@ -54,7 +56,7 @@ export default function Login() {
       .required("Password is required"),
   });
 
-  const { data: accountData } = useFetch('http://localhost:3000/account');  
+  const { data: accountData } = useFetch('http://localhost:3000/accounts/1');  
   const handleSubmit = async (values, { setSubmitting }) => {
     console.log(values)
     setLoginError(null);
@@ -63,8 +65,8 @@ export default function Login() {
       const email = values.email;
       // check if password match
       if(password !== accountData?.accountPassword){
-        console.error('The password is incorrect');
-        throw new Error('The password is incorrect')
+        console.error('The account password is incorrect');
+        throw new Error('The account password is incorrect')
       };
       // check if user exists within team account
       const existingMember = accountData?.members.find((member)=> member.email === email);
@@ -72,11 +74,11 @@ export default function Login() {
         throw new Error('You dont have an account!');
       };
       // Handle successful login
-      console.log("Login successful:", values);
-
+      
       // Store user in localstorage
-      localStorage.setItem("signedInUser", existingMember);
-
+      localStorage.setItem("signedInUser", JSON.stringify(existingMember));
+      console.log("Login successful:", values);
+      toast.success("Signup successful, Welcome!!");
       // Remember email if checkbox is checked
       if (rememberMe) {
         localStorage.setItem("rememberedEmail", values.email);
@@ -86,13 +88,15 @@ export default function Login() {
       }
 
       // Redirect home page
-      navigate("/home");
+      setTimeout(()=>{
+        navigate("/home");
+      },2000);
     } catch (err) {
       console.error("Login error:", err);
       setLoginError(
         err.message ||
           "Login failed. Please check your credentials and try again."
-      );      
+      );
     } finally {
       setSubmitting(false);
     }
@@ -242,6 +246,7 @@ export default function Login() {
           })}
         </Carousel>
       </div>
+      <ToastContainer position="top-left" autoClose={2000} />
     </AuthLayout>
   );
 }
