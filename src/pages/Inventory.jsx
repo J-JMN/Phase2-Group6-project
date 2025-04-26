@@ -1,41 +1,65 @@
 import React, { useRef, useState } from 'react'
-import { AddIcon } from '../components/icons';
+import { AddIcon, DeleteIcon } from '../components/icons';
 import { InventoryCardList, InventoryTableList } from '../components/InventoryList';
 import useFetch from '../hooks/useFetch';
 import usePost from '../hooks/usePost';
 import ModalComponent from '../components/Modal';
 import InventoryForm from '../components/forms/InventoryForm';
 import { toast } from 'react-toastify';
+import usePut from '../hooks/usePUT';
+import useDelete from '../hooks/useDelete';
 
 function Inventory() {
   const [searchQuery,setsearchQuery]=useState('');
+
   const [showModal, setShowModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+  const [editItemModal, setEditItemModal] = useState(null);
+  const [deleteItemModal, setDeleteItemModal] = useState(null);
+
   const handleShowModal = () => setShowModal(true);
   const handleCloseModal = () => setShowModal(false);
+
+  const handleShowDeleteModal = () => setShowDeleteModal(true);
+  const handleCloseDeleteModal = () => setShowDeleteModal(false);
+
   let { data, loading, error, refetch  } = useFetch('http://localhost:3000/inventory');  
   const { postData } = usePost('http://localhost:3000/inventory');
+  const { putData } = usePut('http://localhost:3000/inventory');
+  const { deleteData } = useDelete('http://localhost:3000/inventory');
   const formikSubmitRef = useRef();
 
   const handleSubmit = async(data) => {
-    console.log('Submitted:', data);
     try {
       toast.info('Submitting item...', { autoClose: 1000 });
-  
-      const result = await postData(data); // this now returns data or throws
-      console.log(result)
-      await refetch();
-  
-      toast.success('Item added successfully!', { autoClose: 2000 });
+      if(editItemModal !== null){
+        await putData(data,editItemModal?.id); // this now returns data or throws
+      }else{
+        await postData(data); // this now returns data or throws
+      }      
+      await refetch();      
       handleCloseModal();
     } catch (error) {
       toast.error(`Submission failed: ${error.message || 'Unknown error'}`);
     }
   };
 
-  const handleSaveChanges = () => {
-    console.log('saved clieckd')
+  const handleSaveChanges = async() => {
+    console.log('saved clicked')
     if (formikSubmitRef.current) {
       formikSubmitRef.current(); // trigger Formik form submission
+    };
+    if(deleteItemModal !== null){
+      try {
+        toast.info('Deleting item...', { autoClose: 1000 });
+        await deleteData(deleteItemModal.id);      
+        handleCloseDeleteModal();
+        setDeleteItemModal(null)
+        await refetch();
+      } catch (error) {
+        toast.error(`Item deletion failed: ${error.message || 'Unknown error'}`);
+      }
     }
   };
 
@@ -46,7 +70,6 @@ function Inventory() {
     return <p>An Error Occured</p>
   };
   data = data?.filter(item => item?.title?.toLowerCase().includes(searchQuery?.toLowerCase()))
-  console.log(data);
 
   return (
     <div className='px-4 py-2'>
@@ -59,15 +82,29 @@ function Inventory() {
               </div>
           </div>
       </div>
-      {data !== null && (<InventoryTableList items={data}/>)} {/**Table view for large screens */}
-      {data !== null && (<InventoryCardList items={data}/>)} {/**Card view for small screens */}
+      {data !== null && (<InventoryTableList items={data} setEditItemModal={setEditItemModal}  handleShowModal={handleShowModal} handleShowDeleteModal={handleShowDeleteModal} setDeleteItemModal={setDeleteItemModal}/>)} {/**Table view for large screens */}
+      {data !== null && (<InventoryCardList items={data} setEditItemModal={setEditItemModal}  handleShowModal={handleShowModal} handleShowDeleteModal={handleShowDeleteModal} setDeleteItemModal={setDeleteItemModal}/>)} {/**Card view for small screens */}
       <ModalComponent 
         show={showModal} 
         handleClose={handleCloseModal}
         handleAction={handleSaveChanges}
-        header={'Create a new Item'}
+        header={editItemModal !== null ? 'Update Item':'Create a new Item'}
       >
-        <InventoryForm handleSubmit={handleSubmit} submitBtnRef={formikSubmitRef} /> {/* New Item Form */}
+        <InventoryForm handleSubmit={handleSubmit} submitBtnRef={formikSubmitRef} initialValues={editItemModal}/> {/* New Item Form */}
+      </ModalComponent>
+      <ModalComponent 
+        show={showDeleteModal} 
+        handleClose={handleCloseDeleteModal}
+        handleAction={handleSaveChanges}
+        header={'Remove Item'}
+        isDelete={true}
+      >
+        <div className="d-flex flex-column justify-content-center align-items-center ">
+          <span className='text-danger p-1 fs-2 rounded-circle d-flex justify-content-center align-items-center custom-bg-red-accent' style={{width:'50px',height:'50px'}}><DeleteIcon /></span>
+          <p className='fs-4 fw-bold text-danger'>Remove Item</p>
+          <span className='fs-6'>Are you sure you want to  delete this item?</span>
+          <span className='fs-6'>This action cannot be undone!</span>
+        </div>
       </ModalComponent>
     </div>
   )
