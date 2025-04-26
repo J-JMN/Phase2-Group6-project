@@ -27,25 +27,29 @@ const ShoppingList = () => {
   let { data: inventoryData, loading: inventoryDataLoading, error: inventoryDataError, refetch: inventoryDataRefetch } = useFetch('http://localhost:3000/inventory');
   console.log('with assigning variable', inventoryData)
   let { data, loading, error, refetch } = useFetch('http://localhost:3000/inventory');
+  let { data: itemsData, loading: itemsDataLoading, error: itemsDataError, refetch: itemsDataRefetch } = useFetch('http://localhost:3000/items');
   const { data: accountData, loading: accountLoading, error: accountError } = useFetch('http://localhost:3000/account'); //useFetch for account data
 
   console.log('without assigning variable', data)
   console.log('Dropdown/Table Data:', inventoryData);
   console.log('Refetch Data:', data);
-  if (inventoryDataLoading || loading) console.log('Data is loading...');
-  if (inventoryDataError || error) console.error('Error fetching inventory:', inventoryDataError || error);
-  useEffect(() => {
-    if (inventoryData) {
-      setShoppingList(inventoryData); // Table data
+  if (inventoryDataLoading || loading || itemsDataLoading) console.log('Data is loading...');
+  if (inventoryDataError || error || itemsDataError) console.error('Error fetching data:', inventoryDataError || error || itemsDataError);
 
-      const titles = [...new Set(inventoryData.map(item => item.title))];
-      const categories = [...new Set(inventoryData.map(item => item.category))];
-      const addedBy = [...new Set(inventoryData.map(item => item.addedBy))];
-      const status = [...new Set(inventoryData.map(item => item.status))];
+  useEffect(() => {
+    if (inventoryData && itemsData) {
+      const combinedData = [...inventoryData, ...itemsData];
+      setShoppingList(combinedData);
+
+      const titles = [...new Set(combinedData.map(item => item.title))];
+      const categories = [...new Set(combinedData.map(item => item.category))];
+      const addedBy = [...new Set(combinedData.map(item => item.addedBy))];
+      const status = [...new Set(combinedData.map(item => item.status))];
 
       setOptions({ titles, categories, addedBy, status });
     }
-  }, [inventoryData]);
+  }, [inventoryData, itemsData]);
+
   useEffect(() => { //useEffect to display option for added by
     if (accountData && accountData.members) {
       const memberNames = accountData.members.map(member => member.name);
@@ -88,7 +92,8 @@ const ShoppingList = () => {
     const newItem = { ...formData };
 
     try {
-      const res = await fetch('http://localhost:3000/inventory', {
+      // Added the new item to the items resource in db.json
+      const res = await fetch('http://localhost:3000/items', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -96,13 +101,14 @@ const ShoppingList = () => {
         body: JSON.stringify(newItem)
       });
 
-      const created = await res.json();
+      const createdItem = await res.json();
       if (res.ok) {
         alert('Item added successfully!');
         setFormData({ title: '', quantity: '', price: '', category: '', addedBy: '', status: '' });
 
-        // Refresh shopping list data after adding the item
-        await inventoryDataRefetch(); // Refetch the updated data
+        // Refetch the inventory and items data after adding the item
+        await itemsDataRefetch();
+        await inventoryDataRefetch(); // This ensures the table is updated with the latest data
       } else {
         alert('Failed to add item.');
       }
