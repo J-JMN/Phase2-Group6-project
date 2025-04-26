@@ -110,22 +110,25 @@ const ShoppingList = () => {
   let { data: inventoryData, loading: inventoryDataLoading, error: inventoryDataError, refetch: inventoryDataRefetch } = useFetch('http://localhost:3000/inventory');
   console.log('with assigning variable', inventoryData)
   let { data, loading, error, refetch } = useFetch('http://localhost:3000/inventory');
+  let { data: itemsData, loading: itemsDataLoading, error: itemsDataError, refetch: itemsDataRefetch } = useFetch('http://localhost:3000/items');
   const { data: accountData, loading: accountLoading, error: accountError } = useFetch('http://localhost:3000/account'); //useFetch for account data
 
   if (inventoryDataLoading || loading) console.log('Data is loading...');
   if (inventoryDataError || error) console.error('Error fetching inventory:', inventoryDataError || error);
   useEffect(() => {
-    if (inventoryData) {
-      setShoppingList(inventoryData); // Table data
+    if (inventoryData && itemsData) {
+      const combinedData = [...inventoryData, ...itemsData];
+      setShoppingList(combinedData);
 
-      const titles = [...new Set(inventoryData.map(item => item.title))];
-      const categories = [...new Set(inventoryData.map(item => item.category))];
-      const addedBy = [...new Set(inventoryData.map(item => item.addedBy))];
-      const status = [...new Set(inventoryData.map(item => item.status))];
+      const titles = [...new Set(combinedData.map(item => item.title))];
+      const categories = [...new Set(combinedData.map(item => item.category))];
+      const addedBy = [...new Set(combinedData.map(item => item.addedBy))];
+      const status = [...new Set(combinedData.map(item => item.status))];
 
       setOptions({ titles, categories, addedBy, status });
     }
-  }, [inventoryData]);
+  }, [inventoryData, itemsData]);
+
   useEffect(() => { //useEffect to display option for added by
     if (accountData && accountData.members) {
       const memberNames = accountData.members.map(member => member.name);
