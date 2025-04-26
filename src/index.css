@@ -52,6 +52,9 @@ a{
 .custom-bg-base{
   background-color: var(--base) !important;
 }
+.custom-bg-red-accent{
+  background-color: #ffcbd1 !important;
+}
 .custom-text-color-primary{
   color: var(--primary) !important;
 }

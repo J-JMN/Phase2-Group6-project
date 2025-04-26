@@ -1,17 +1,17 @@
 import { useState, useCallback } from 'react';
 import { toast } from 'react-toastify';
 
-const usePUT = (url) => {
+const usePut = (url) => {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    const putData = useCallback(async (body) => {
+    const putData = useCallback(async (body,id) => {
         setLoading(true);
         setError(null);
 
         try {
-            const response = await fetch(url, {
+            const response = await fetch(url+'/'+id, {
                 method: 'PUT',
                 headers: {
                   'Content-Type': 'application/json',
@@ -25,11 +25,12 @@ const usePUT = (url) => {
 
             const result = await response.json();
             setData(result);
-            toast.success("Settings saved successfully!"); 
+            toast.success("Saved successfully!"); 
             return result;
         } catch (err) {
             setError(err);
-            toast.error("Failed to save settings!"); 
+            toast.error("Failed to save data!"); 
+            throw new Error(err)
         } finally {
             setLoading(false);
         }
@@ -67,4 +68,4 @@ const usePUT = (url) => {
     return { data, loading, error, putData, removeMemberData };
 };
 
-export default usePUT;
+export default usePut;
