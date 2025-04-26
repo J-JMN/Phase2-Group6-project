@@ -80,6 +80,41 @@
       ]
     }
   ],
+  "accounts": [
+    {
+      "accountName": "Group 6",
+      "accountPassword": "password",
+      "members": [
+        {
+          "name": "Dennis",
+          "email": "dennissammy77@gmail.com",
+          "role": "owner"
+        },
+        {
+          "name": "Sammy",
+          "email": "sammymusembi727@gmail.com",
+          "role": "member"
+        },
+        {
+          "name": "Pauline",
+          "email": "pauline@gmail.com",
+          "role": "member"
+        }
+      ],
+      "id": "1"
+    }
+  ],
+  "items": [
+    {
+      "id": "77e9",
+      "title": "Soap",
+      "quantity": "3",
+      "price": 123,
+      "category": "toiletries",
+      "addedBy": "dennis",
+      "status": false
+    }
+  ],
   "templates": [
     {
       "id": "1",
