@@ -1,20 +1,44 @@
-import React from "react";
-import useLocalSettings from "../hooks/useLocalSettings";
+import React, { useEffect, useState } from "react";
+import usePUT from "../hooks/usePUT";
 import SettingsForm from "../components/SettingsForm";
 import MemberManager from "../components/MemberManager";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
-const SettingsPage = () => {
-  const { settings, saveSettings } = useLocalSettings();
+export default function SettingsPage() {
+  const [account, setAccount] = useState(null);
+  const { putData, loading, error } = usePUT("http://localhost:3000/account");
 
-  const handleSubmit = (values) => {
+  // Fetch account data from db.json
+  useEffect(() => {
+    fetch("http://localhost:3000/account")
+      .then((res) => res.json())
+      .then((data) => {
+        setAccount({
+          accountName: data.accountName,
+          accountPassword: data.accountPassword,
+          members: data.members,
+        });
+      })
+      .catch((err) => {
+        console.error("Error fetching account data:", err);
+      });
+  }, []);
+
+  if (!account) return <p>Loading...</p>;
+  if (loading) return <p>Saving...</p>;
+  if (error) return <p>Error saving settings.</p>;
+
+  const saveAccount = async (updatedFields) => {
     const updated = {
-      accountName: values.accountName,
-      accountPassword: values.accountPassword,
-      members: settings.members,
+      accountName: updatedFields.accountName ?? account.accountName,
+      accountPassword: updatedFields.accountPassword ?? account.accountPassword,
+      members: updatedFields.members ?? account.members,
     };
-    saveSettings(updated);
+    setAccount(updated);
+    await putData({
+      accountName: updated.accountName,
+      accountPassword: updated.accountPassword,
+      members: updated.members,
+    });
   };
 
   return (
@@ -31,24 +55,22 @@ const SettingsPage = () => {
 
         <SettingsForm
           initialValues={{
-            accountName: settings.accountName,
-            accountPassword: settings.accountPassword,
+            accountName: account.accountName,
+            accountPassword: account.accountPassword,
           }}
-          onSubmit={handleSubmit}
-        />
-
-
-        <MemberManager
-          members={settings.members}
-          setMembers={(mems) =>
-            saveSettings({ ...settings, members: mems })
+          onSubmit={({ accountName, accountPassword }) =>
+            saveAccount({ accountName, accountPassword })
           }
         />
 
-        <ToastContainer position="top-right" autoClose={3000} />
+        <MemberManager
+          members={account.members}
+          onChange={(members) => saveAccount({ members })}
+        />
       </div>
     </div>
   );
-};
+}
 
-export default SettingsPage;
+
+
