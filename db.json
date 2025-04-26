@@ -61,8 +61,8 @@
     }
   ],
   "account": {
-    "name": "Group 6",
-    "password": "password",
+    "accountName": "Group 6",
+    "accountPassword": "password",
     "members": [
       {
         "name": "dennis",
@@ -70,12 +70,7 @@
         "role": "owner",
         "id": "1"
       }
-    ],
-    "categories": [
-      "cleaning",
-      "groceries"
-    ],
-    "status": true
+    ]
   },
   "templates": [
     {
