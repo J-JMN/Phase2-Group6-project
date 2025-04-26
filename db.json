@@ -84,6 +84,17 @@
       "id": "1"
     }
   ],
+  "items": [
+    {
+      "id": "77e9",
+      "title": "Soap",
+      "quantity": "3",
+      "price": 123,
+      "category": "toiletries",
+      "addedBy": "dennis",
+      "status": false
+    }
+  ],
   "templates": [
     {
       "id": "1",
