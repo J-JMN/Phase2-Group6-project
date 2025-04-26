@@ -10,7 +10,7 @@ const routes = [
     path: "/",
     element: <App />, // App is now the layout
     children: [
-      { path: "home", element: <ShoppingList /> },
+      { path: "shop", element: <ShoppingList /> },
       { path: "inventory", element: <Inventory /> },
       { path: "settings", element: <SettingsPage /> },
     ],

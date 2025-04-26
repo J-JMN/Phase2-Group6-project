@@ -92,7 +92,7 @@ export default function Login() {
 
       // Redirect home page
       setTimeout(()=>{
-        navigate("/home");
+        navigate("/shop");
       },2000);
     } catch (err) {
       console.error("Login error:", err);
