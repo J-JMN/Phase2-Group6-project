@@ -5,7 +5,7 @@ const useAccountData = () => {
   const [account, setAccount] = useState(null);
 
   useEffect(() => {
-    // Fetch account data from db.json (replace with your actual endpoint)
+    // Fetch account data from db.json
     const fetchAccountData = async () => {
       try {
         const response = await fetch("http://localhost:3000/account");

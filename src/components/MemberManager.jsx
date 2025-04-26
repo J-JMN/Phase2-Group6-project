@@ -11,11 +11,20 @@ export default function MemberManager({ members, onChange }) {
       toast.warning("Name and Email are required");
       return;
     }
-    const alreadyExists = members.find((m) => m.email === email);
+
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email.trim())) {
+      toast.error("Please enter a valid email address");
+      return;
+    }
+
+    const alreadyExists = members.find((m) => m.email === email.trim());
     if (alreadyExists) {
       toast.error("Member with that email already exists");
       return;
     }
+
     const newMember = {
       id: Date.now().toString(),
       name: name.trim(),
@@ -94,6 +103,7 @@ export default function MemberManager({ members, onChange }) {
     </div>
   );
 }
+
 
 
 
