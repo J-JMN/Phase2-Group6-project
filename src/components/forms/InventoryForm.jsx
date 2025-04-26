@@ -11,6 +11,7 @@ const ItemSchema = Yup.object().shape({
 });
 
 function InventoryForm({handleSubmit,submitBtnRef, initialValues }) {
+  console.log(initialValues)
   const defaultValues = {
     title: '',
     category: '',
@@ -59,6 +60,9 @@ function InventoryForm({handleSubmit,submitBtnRef, initialValues }) {
             <label htmlFor="description">Description</label>
             <Field id="description" name="description" placeholder="Always by 4 pieces" as="textarea" className='form-control form-control-md my-2' />
             {errors.description && touched.description ? ( <div className='text-danger'>{errors.description}</div> ) : null}
+            <label>
+              <Field type="checkbox" name="status" /> Active Status
+            </label>
           </Form>
         );
       }}

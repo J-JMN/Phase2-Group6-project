@@ -104,10 +104,7 @@ export default function Login() {
   return (
     <AuthLayout>
       <div className="d-flex w-100 m-auto justify-content-center align-items-center">
-        <div
-          className="d-flex flex-column rounded w-md-50 custom-bg-base"
-          style={{ padding: "32px" }}
-        >
+        <div className="d-flex flex-column rounded shadow w-md-50 bg-white" style={{padding: '32px'}}>
           <div className="text-align-center d-flex flex-column align-items-center justify-content-center w-100 my-4">
             <h4 className="mb-3">Welcome Back</h4>
             <h3 className="text-muted mb-4">Login to your account</h3>
@@ -233,24 +230,19 @@ export default function Login() {
           interval={3000}
           className="h-100"
         >
-          {carouselContent?.map((content, index) => (
-            <Carousel.Item
-              className="h-100 d-flex align-items-center"
-              key={index}
-            >
-              <div className="w-100 text-center px-5 gap-4">
-                <h1 className="mb-4 fw-bolder custom-text-color-primary">
-                  <span className="custom-text-color-secondary">Shop</span>Mate
-                </h1>
-                <h2 className="mt-4 mb-4 fw-bolder custom-text-color-primary display-3 flex-wrap col-9 m-auto">
-                  {content.title}
-                </h2>
-                <p className="mt-4 display-6 custom-text-color-dark col-6 m-auto">
-                  {content.text}
-                </p>
-              </div>
-            </Carousel.Item>
-          ))}
+          {carouselContent?.map((content,index)=>{
+            return(
+              <Carousel.Item className="h-100 d-flex align-items-center" key={index}>
+                <div
+                  className="w-100 text-center px-5 gap-4"
+                >
+                  <h1 className="mb-4 fw-bolder custom-text-color-primary"><span className='custom-text-color-secondary'>Shop</span>Mate</h1>
+                  <h2 className="mt-4 mb-4 fw-bolder custom-text-color-primary display-2 flex-wrap col-9 m-auto" >{content.title}</h2>
+                  <p className="mt-4 fs-4 custom-text-color-dark col-6 m-auto">{content.text}</p>
+                </div>
+              </Carousel.Item>
+            )
+          })}
         </Carousel>
       </div>
     </AuthLayout>
