@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "prestart": "npm run build",
-    "start": "nodemon server.cjs"
+    "start": "node server.cjs"
   },
   "dependencies": {
     "bootstrap": "^5.3.5",
