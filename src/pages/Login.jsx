@@ -11,6 +11,7 @@ import {
 import { Formik, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
+import useFetch from "../hooks/useFetch";
 
 export default function Login() {
   const [rememberMe, setRememberMe] = useState(false);
@@ -53,37 +54,33 @@ export default function Login() {
       .required("Password is required"),
   });
 
+  const { data: accountData } = useFetch('http://localhost:3000/account');  
   const handleSubmit = async (values, { setSubmitting }) => {
+    console.log(values)
     setLoginError(null);
-
     try {
-      //fetching data
-      const response = await fetch("http://localhost:5173/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: values.email,
-          password: values.password,
-        }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || "Login failed");
-      }
-
+      const password = values.password
+      const email = values.email;
+      // check if password match
+      if(password !== accountData?.accountPassword){
+        console.error('The password is incorrect');
+        throw new Error('The password is incorrect')
+      };
+      // check if user exists within team account
+      const existingMember = accountData?.members.find((member)=> member.email === email);
+      if(!existingMember){
+        throw new Error('You dont have an account!');
+      };
       // Handle successful login
-      console.log("Login successful:", data);
+      console.log("Login successful:", values);
 
-      // Store authentication token
-      localStorage.setItem("authToken", data.token);
+      // Store user in localstorage
+      localStorage.setItem("signedInUser", existingMember);
 
       // Remember email if checkbox is checked
       if (rememberMe) {
         localStorage.setItem("rememberedEmail", values.email);
+        localStorage.setItem("rememberedPassword", values.password);
       } else {
         localStorage.removeItem("rememberedEmail");
       }
@@ -95,7 +92,7 @@ export default function Login() {
       setLoginError(
         err.message ||
           "Login failed. Please check your credentials and try again."
-      );
+      );      
     } finally {
       setSubmitting(false);
     }
