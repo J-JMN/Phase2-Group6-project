@@ -1,12 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { Row, Col, Form, Button, Container } from 'react-bootstrap';
 import { Table } from 'react-bootstrap';
+import useFetch from '../hooks/useFetch';
+import { DeleteIcon, EditIcon } from '../components/icons'
 
 
 
 const ShoppingList = () => {
   const [shoppingList, setShoppingList] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [showForm, setShowForm] = useState(false);
+  const [options, setOptions] = useState({
+    titles: [],
+    categories: [],
+    addedBy: [],
+    status: [],
+  });
+
   const [formData, setFormData] = useState({
     title: '',
     quantity: '',
@@ -16,19 +26,63 @@ const ShoppingList = () => {
     status: 'false'
   });
 
-  const users = ['Dominic', 'Dennis', 'Pauline', 'Joseph'];
-  const statuses = ['Buy', 'Purchased'];
+  let { data: inventoryData, loading: inventoryDataLoading, error: inventoryDataError, refetch: inventoryDataRefetch } = useFetch('http://localhost:3000/inventory');
+  console.log('with assigning variable', inventoryData)
+  let { data, loading, error, refetch } = useFetch('http://localhost:3000/inventory');
+  const { data: accountData, loading: accountLoading, error: accountError } = useFetch('http://localhost:3000/account'); //useFetch for account data
 
+  console.log('without assigning variable', data)
+  console.log('Dropdown/Table Data:', inventoryData);
+  console.log('Refetch Data:', data);
+  if (inventoryDataLoading || loading) console.log('Data is loading...');
+  if (inventoryDataError || error) console.error('Error fetching inventory:', inventoryDataError || error);
   useEffect(() => {
-    fetch('/inventory')
-      .then(res => res.json())
-      .then(data => setShoppingList(data))
-      .catch(err => console.error('Failed to fetch data:', err));
-  }, []);
+    if (inventoryData) {
+      setShoppingList(inventoryData); // Table data
+
+      const titles = [...new Set(inventoryData.map(item => item.title))];
+      const categories = [...new Set(inventoryData.map(item => item.category))];
+      const addedBy = [...new Set(inventoryData.map(item => item.addedBy))];
+      const status = [...new Set(inventoryData.map(item => item.status))];
+
+      setOptions({ titles, categories, addedBy, status });
+    }
+  }, [inventoryData]);
+  useEffect(() => { //useEffect to display option for added by
+    if (accountData && accountData.members) {
+      const memberNames = accountData.members.map(member => member.name);
+      setOptions(prev => ({ ...prev, addedBy: memberNames }));
+    }
+  }, [accountData]);
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+
+    // Special handling for title selection
+    if (name === "title") {
+      // Find the selected item based on the title
+      const selectedItem = shoppingList.find(item => item.title === value);
+
+      // Update formData with the corresponding price and category
+      if (selectedItem) {
+        setFormData(prev => ({
+          ...prev,
+          title: value,
+          price: selectedItem.price,
+          category: selectedItem.category
+        }));
+      }
+    }
+    // Special handling for boolean 'status'
+    else if (name === "status") {
+      setFormData(prev => ({
+        ...prev,
+        [name]: value === "true" ? true : value === "false" ? false : ""
+      }));
+    } else {
+      setFormData(prev => ({ ...prev, [name]: value }));
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -36,18 +90,21 @@ const ShoppingList = () => {
     const newItem = { ...formData };
 
     try {
-      const res = await fetch('/inventory', {
+      const res = await fetch('http://localhost:3000/inventory', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(newItem)
       });
-      const data = await res.json();
+
+      const created = await res.json();
       if (res.ok) {
-        setShoppingList(prev => [...prev, data]);
         alert('Item added successfully!');
-        setFormData({ title: '', quantity: '', price: '', category: '', addedBy: '', status: 'Buy' });
+        setFormData({ title: '', quantity: '', price: '', category: '', addedBy: '', status: '' });
+
+        // Refresh shopping list data after adding the item
+        await inventoryDataRefetch(); // Refetch the updated data
       } else {
         alert('Failed to add item.');
       }
@@ -80,71 +137,129 @@ const ShoppingList = () => {
             />
           </Col>
           <Col xs="auto">
-            <Button type="submit" form="addItemForm" variant="warning" size="sm">
-              Add
+            <Button
+              variant="warning"
+              size="sm"
+              onClick={() => setShowForm(prev => !prev)}
+            >
+              {showForm ? 'Close' : 'Add'}
             </Button>
           </Col>
         </Row>
 
+
         {/* Form section: Details for the item */}
-        <Row className="mb-4">
-          <Col xs="auto">
-            <form id="addItemForm" onSubmit={handleSubmit} className="d-flex gap-2">
-              <input name="title" value={formData.title} onChange={handleChange} placeholder="Item" className="border p-2 rounded" required />
-              <input name="quantity" value={formData.quantity} onChange={handleChange} type="number" placeholder="Qty" className="border p-2 rounded" required />
-              <input name="price" value={formData.price} onChange={handleChange} type="number" placeholder="Price" className="border p-2 rounded" required />
-              <input name="category" value={formData.category} onChange={handleChange} placeholder="Category" className="border p-2 rounded" required />
-               <select name="addedBy" value={formData.addedBy} onChange={handleChange} className="border p-2 rounded" required> 
-              <option value="" disabled>Added By</option> 
-                {users.map(user => (
-                  <option key={user} value={user}>{user}</option>
-                ))}
-              </select>
-              <select name="status" value={formData.status} onChange={handleChange} className="border p-2 rounded" required>
-                {statuses.map(status => (
-                  <option key={status} value={status}>{status}</option>
-                ))}
-              </select>
-            </form>
-          </Col>
-        </Row>
+        {showForm && (
+          <Row className="mb-4">
+            <Col xs="auto">
+              <form id="addItemForm" onSubmit={handleSubmit} className="d-flex gap-2">
+                <select name="title" value={formData.title} onChange={handleChange} className="border p-2 rounded" required>
+                  <option value="" disabled>Select Item</option>
+                  {options.titles.map(title => (
+                    <option key={title} value={title}>{title}</option>
+                  ))}
+                </select>
+                <input name="quantity" value={formData.quantity} onChange={handleChange} type="number" placeholder="Qty" className="border p-2 rounded" required />
+                <input name="price" value={formData.price} onChange={handleChange} type="number" placeholder="Price" className="border p-2 rounded" required />
+                <select name="category" value={formData.category} onChange={handleChange} className="border p-2 rounded" required>
+                  <option value="" disabled>Select Category</option>
+                  {options.categories.map(category => (
+                    <option key={category} value={category}>{category}</option>
+                  ))}
+                </select>
+                <select name="addedBy" value={formData.addedBy} onChange={handleChange} className="border p-2 rounded" required>
+                  <option value="" disabled>Added By</option>
+                  {options.addedBy.map(user => (
+                    <option key={user} value={user}>{user}</option>
+                  ))}
+                </select>
+
+                <select
+                  name="status"
+                  value={formData.status === true ? "true" : formData.status === false ? "false" : ""}
+                  onChange={handleChange}
+                  className="border p-2 rounded"
+                  required
+                >
+                  <option value="" disabled>Status</option>
+                  <option value="true">Active</option>
+                  <option value="false">Used</option>
+                </select>
+                <Button type="submit" variant="success" size="sm">Save</Button>
+              </form>
+
+            </Col>
+          </Row>
+        )}
 
         {/* Table section */}
-        <Table striped bordered hover responsive className="text-center">
-          <thead>
-            <tr className="table-success text-white">
-              <th className="border-0 px-3"><input type="checkbox" /></th>
-              <th className="border-0 px-3">Title</th>
-              <th className="border-0 px-3">Quantity</th>
-              <th className="border-0 px-3">Price</th>
-              <th className="border-0 px-3">Category</th>
-              <th className="border-0 px-3">Added By</th>
-              <th className="border-0 px-3">Status</th>
-              <th className="border-0 px-3">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredList.map(item => (
-              <tr key={item.id}>
-                <td><input type="checkbox" /></td>
-                <td>{item.title}</td>
-                <td>{item.quantity}</td>
-                <td>{item.price}</td>
-                <td>{item.category}</td>
-                <td>{item.addedBy}</td>
-                <td>{item.status}</td>
-                <td>
-                  
-                </td>
+        <div className="overflow-auto" style={{ maxHeight: '400px' }}>
+          <Table striped bordered hover responsive className="text-center d-none d-sm-table"
+>
+            <thead>
+              <tr className="table-success text-white">
+                <th className="border-0 px-3"><input type="checkbox" /></th>
+                <th className="border-0 px-3">Title</th>
+                <th className="border-0 px-3">Quantity</th>
+                <th className="border-0 px-3">Price</th>
+                <th className="border-0 px-3">Category</th>
+                <th className="border-0 px-3">Added By</th>
+                <th className="border-0 px-3">Status</th>
+                <th className="border-0 px-3">Actions</th>
               </tr>
-            ))}
-            <tr>
-              <td colSpan="8" className="text-end p-3">
-                <Button variant="">Manage</Button>
-              </td>
-            </tr>
-          </tbody>
-        </Table>
+            </thead>
+            <tbody>
+              {filteredList.map(item => (
+                <tr key={item.id}>
+                  <td><input type="checkbox" /></td>
+                  <td>{item.title}</td>
+                  <td>{item.quantity}</td>
+                  <td>{item.price}</td>
+                  <td>{item.category}</td>
+                  <td>{item.addedBy}</td>
+                  <td>
+                    <span className={`badge bg-${item.status ? 'success' : 'warning'}`}>
+                      {item.status ? 'Active' : 'Used'}
+                    </span>
+                  </td>
+
+                  <td>
+                    <div className="d-flex gap-2 justify-content-center">
+                      <button className='btn btn-sm btn-outline-white'><EditIcon /> Manage</button>
+                      <button className='btn btn-sm btn-danger'><DeleteIcon /> Delete</button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </div>
+        {/* Responsiveness in small screens */}
+        <div className="d-block d-sm-none mt-4">
+          {filteredList.map((item) => (
+            <div className="card mb-3" key={item?.id}>
+              <div className="card-body">
+                <div className='d-flex justify-content-between align-items-center mb-2'>
+                  <h5 className="mb-0">{item?.title}</h5>
+                  <span className={`badge bg-${item?.status ? 'success' : 'warning'}`}>
+                    {item?.status ? 'Active' : 'Used'}
+                  </span>
+                </div>
+                <p className="mb-1">{item?.category}</p>
+                <p className="mb-2">{item?.price}</p>
+                <div className="d-flex gap-2">
+                  <Button variant="outline-dark" size="sm">
+                    <EditIcon /> Manage
+                  </Button>
+                  <Button variant="danger" size="sm">
+                    <DeleteIcon /> Delete
+                  </Button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
 
       </Container>
     </div>
