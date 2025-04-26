@@ -13,8 +13,8 @@ const ShoppingList = () => {
   // const [shoppingList, setShoppingList] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
 
-  const { data: listsData, refetch: listsDataRefetch } = useFetch(`${API_URL}/lists/1`);
-  const { putData } = usePut(`${API_URL}/lists`);
+  const { data: listsData, refetch: listsDataRefetch } = useFetch(`${API_URL}/api/lists/1`);
+  const { putData } = usePut(`${API_URL}/api/lists`);
   /**Manage Items Modal */
   const [showModal, setShowModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);

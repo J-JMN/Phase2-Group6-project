@@ -57,7 +57,7 @@ export default function Login() {
       .required("Password is required"),
   });
 
-  const { data: accountData } = useFetch(`${API_URL}/accounts/1`);  
+  const { data: accountData } = useFetch(`${API_URL}/api/accounts/1`);  
   const handleSubmit = async (values, { setSubmitting }) => {
     console.log(values)
     setLoginError(null);

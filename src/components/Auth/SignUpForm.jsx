@@ -23,8 +23,8 @@ const SignUpSchema = Yup.object().shape({
 export default function SignUpForm() {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const { putData } = usePut(`${API_URL}/accounts`);
-  const { data: accountData } = useFetch(`${API_URL}/accounts/1`);
+  const { putData } = usePut(`${API_URL}/api/accounts`);
+  const { data: accountData } = useFetch(`${API_URL}/api/accounts/1`);
 
   const handleSubmit = async (values, { setSubmitting }) => {
     setError(null);

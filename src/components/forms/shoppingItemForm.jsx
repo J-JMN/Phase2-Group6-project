@@ -14,7 +14,7 @@ const ItemSchema = Yup.object().shape({
 });
 
 export default function ShoppingListForm({handleSubmit,submitBtnRef, initialValues }) {
-  const { data: inventoryItems } = useFetch(`${API_URL}/inventory`)
+  const { data: inventoryItems } = useFetch(`${API_URL}/api/inventory`)
   console.log(initialValues)
   const defaultValues = {
     title: '',

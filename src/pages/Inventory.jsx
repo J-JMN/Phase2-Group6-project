@@ -25,10 +25,10 @@ function Inventory() {
   const handleShowDeleteModal = () => setShowDeleteModal(true);
   const handleCloseDeleteModal = () => setShowDeleteModal(false);
 
-  let { data, loading, error, refetch  } = useFetch(`${API_URL}/inventory`);  
-  const { postData } = usePost(`${API_URL}/inventory`);
-  const { putData } = usePut(`${API_URL}/inventory`);
-  const { deleteData } = useDelete(`${API_URL}/inventory`);
+  let { data, loading, error, refetch  } = useFetch(`${API_URL}/api/inventory`);  
+  const { postData } = usePost(`${API_URL}/api/inventory`);
+  const { putData } = usePut(`${API_URL}/api/inventory`);
+  const { deleteData } = useDelete(`${API_URL}/api/inventory`);
   const formikSubmitRef = useRef();
 
   const handleSubmit = async(data) => {
