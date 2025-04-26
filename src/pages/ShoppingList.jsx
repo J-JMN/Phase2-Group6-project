@@ -1,39 +1,94 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Row, Col, Form, Button, Container } from 'react-bootstrap';
 import { Table } from 'react-bootstrap';
-import useFetch from '../hooks/useFetch';
 import { AddIcon, DeleteIcon, EditIcon } from '../components/icons';
 import ModalComponent from '../components/Modal';
 import { toast } from 'react-toastify';
-
+import ShoppingListForm from '../components/forms/shoppingItemForm';
+import useFetch from '../hooks/useFetch';
+import usePut from '../hooks/usePUT';
 
 const ShoppingList = () => {
-  const [shoppingList, setShoppingList] = useState([]);
+  // const [shoppingList, setShoppingList] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
 
+  const { data: listsData, refetch: listsDataRefetch } = useFetch('http://localhost:3000/lists/1');
+  const { putData } = usePut('http://localhost:3000/lists');
   /**Manage Items Modal */
   const [showModal, setShowModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+  const [editItemModal, setEditItemModal] = useState(null);
+  const [deleteItemModal, setDeleteItemModal] = useState(null);
+
   const handleShowModal = () => setShowModal(true);
   const handleCloseModal = () => setShowModal(false);
+
+  const handleShowDeleteModal = () => setShowDeleteModal(true);
+  const handleCloseDeleteModal = () => setShowDeleteModal(false);
+
+  console.log(listsData)
   const formikSubmitRef = useRef();
 
-   const handleSubmit = async(data) => {
-      try {
-        toast.info('Saving item...', { autoClose: 1000 });
-        await putData(data,editItemModal?.id); // this now returns data or throws  
-        await refetch();      
-        handleCloseModal();
-      } catch (error) {
-        toast.error(`Submission failed: ${error.message || 'Unknown error'}`);
+  const handleEditItem=(item)=>{
+    setEditItemModal(item);
+    handleShowModal();
+  };
+  const handleDeleteItem=(item)=>{
+    setDeleteItemModal(item)
+    handleShowDeleteModal()
+  }
+
+  const handleSubmit = async(data) => {
+    try {
+      toast.info('Saving item...', { autoClose: 1000 });
+      if(listsData.items?.find((item)=>item?.title.trim().toLowerCase() === data?.title.trim().toLowerCase()) && editItemModal === null){
+        throw new Error('This item already exists!')
       }
-    };
+      if (editItemModal) {
+        // Editing
+        const updatedItems = listsData.items.map((item) =>
+          item.title === editItemModal.title ? { ...item, ...data } : item
+        );
+        await putData({ ...listsData, items: updatedItems },'1');
+      } else {
+        // Adding
+        const updatedItems = [...(listsData.items || []), data];
+        await putData({ ...listsData, items: updatedItems },'1');
+      }
+      //await putData(listsData,'1'); // this now returns data or throws  
+      await listsDataRefetch();      
+      handleCloseModal();
+      setEditItemModal(null)
+    } catch (error) {
+      toast.error(`Submission failed: ${error.message || 'Unknown error'}`);
+    }
+  };
+  
 
   const handleSaveChanges = async() => {
-      console.log('saved clicked')
-      if (formikSubmitRef.current) {
-        formikSubmitRef.current(); // trigger Formik form submission
-      };
+    console.log('saved clicked')
+    if (formikSubmitRef.current) {
+      formikSubmitRef.current(); // trigger Formik form submission
     };
+    if(deleteItemModal !== null){
+      try {
+        toast.info('Deleting item...', { autoClose: 1000 });
+        const updatedItems = listsData.items.filter(
+          (item) => item.title !== deleteItemModal.title
+        );
+
+        await putData({ ...listsData, items: updatedItems },'1');
+
+        await listsDataRefetch();
+        setDeleteItemModal(null);
+        handleCloseDeleteModal();
+      } catch (error) {
+        toast.error(`Item deletion failed: ${error.message || 'Unknown error'}`);
+      }
+    }
+  };
+  /*
 
   const [showForm, setShowForm] = useState(false);
   const [options, setOptions] = useState({
@@ -57,9 +112,6 @@ const ShoppingList = () => {
   let { data, loading, error, refetch } = useFetch('http://localhost:3000/inventory');
   const { data: accountData, loading: accountLoading, error: accountError } = useFetch('http://localhost:3000/account'); //useFetch for account data
 
-  console.log('without assigning variable', data)
-  console.log('Dropdown/Table Data:', inventoryData);
-  console.log('Refetch Data:', data);
   if (inventoryDataLoading || loading) console.log('Data is loading...');
   if (inventoryDataError || error) console.error('Error fetching inventory:', inventoryDataError || error);
   useEffect(() => {
@@ -111,37 +163,38 @@ const ShoppingList = () => {
     }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const newItem = { ...formData };
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   const newItem = { ...formData };
 
-    try {
-      const res = await fetch('http://localhost:3000/inventory', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(newItem)
-      });
+  //   try {
+  //     const res = await fetch('http://localhost:3000/inventory', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json'
+  //       },
+  //       body: JSON.stringify(newItem)
+  //     });
 
-      const created = await res.json();
-      if (res.ok) {
-        alert('Item added successfully!');
-        setFormData({ title: '', quantity: '', price: '', category: '', addedBy: '', status: '' });
+  //     const created = await res.json();
+  //     if (res.ok) {
+  //       alert('Item added successfully!');
+  //       setFormData({ title: '', quantity: '', price: '', category: '', addedBy: '', status: '' });
 
-        // Refresh shopping list data after adding the item
-        await inventoryDataRefetch(); // Refetch the updated data
-      } else {
-        alert('Failed to add item.');
-      }
-    } catch (err) {
-      console.error(err);
-      alert('Error adding item.');
-    }
-  };
+  //       // Refresh shopping list data after adding the item
+  //       await inventoryDataRefetch(); // Refetch the updated data
+  //     } else {
+  //       alert('Failed to add item.');
+  //     }
+  //   } catch (err) {
+  //     console.error(err);
+  //     alert('Error adding item.');
+  //   }
+  // };
 
-  const filteredList = shoppingList.filter(item =>
-    item.title.toLowerCase().includes(searchTerm.toLowerCase())
+  */
+  const filteredList = listsData?.items?.filter(item =>
+    item?.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
@@ -151,10 +204,10 @@ const ShoppingList = () => {
         <h1 className="display-6 custom-text-color-primary fw-bold">Shopping list</h1>
         <div className="d-flex flex-row gap-2 align-items-center">
           <Form.Control
-            type="text"
+            type="search"
             placeholder="Search items"
             value={searchTerm}
-            onChange={e => setSearchTerm(e.target.value)}
+            onChange={(e) => setSearchTerm(e.target.value)}
             className="bg-light border-0 shadow-sm form-control form-control-sm"
             style={{ width: 'auto' }}
           />
@@ -162,21 +215,13 @@ const ShoppingList = () => {
             variant="warning"
             size="sm"
             className='custom-bg-secondary custom-text-color-primary fw-bold'
-            onClick={() => setShowForm(prev => !prev)}
+            // onClick={() => setShowForm(prev => !prev)}
+            onClick={() => handleShowModal()}
           >
-            <AddIcon/> {showForm ? 'Close' : 'Add'}
+            <AddIcon/> Add
           </Button>
         </div>
       </div>
-      {/* Form section: Details for the item */}
-      {showForm && (
-        <Row className="mb-4">
-          <Col xs="auto">
-            
-
-          </Col>
-        </Row>
-      )}
 
       {/* Table section */}
       <div className="d-none d-md-block">
@@ -194,7 +239,7 @@ const ShoppingList = () => {
             </tr>
           </thead>
           <tbody>
-            {filteredList.map(item => (
+            {filteredList?.map(item => (
               <tr key={item.id}>
                 <td><input type="checkbox" className="row-checkbox"/></td>
                 <td style={{width: "10vw"}}>{item.title}</td>
@@ -210,8 +255,8 @@ const ShoppingList = () => {
 
                 <td style={{width: "200px"}}>
                   <div className="d-flex flex-grow gap-2">
-                    <button className='btn btn-sm btn-outline-dark gap-2 align-items-center'><EditIcon /> Manage</button>
-                    <button className='btn btn-sm gap-2 align-items-center custom-bg-red-accent'><DeleteIcon /> Delete</button>
+                    <button className='btn btn-sm btn-outline-dark gap-2 align-items-center'  onClick={(()=>{handleEditItem(item)})}><EditIcon /> Manage</button>
+                    <button className='btn btn-sm gap-2 align-items-center custom-bg-red-accent' onClick={(()=>{handleDeleteItem(item)})}><DeleteIcon /> Delete</button>
                   </div>
                 </td>
               </tr>
@@ -221,7 +266,7 @@ const ShoppingList = () => {
       </div>
       {/* Responsiveness in small screens */}
       <div className="d-block d-sm-none mt-4">
-        {filteredList.map((item) => (
+        {filteredList?.map((item) => (
           <div className="card mb-3" key={item?.id}>
             <div className="card-body">
               <div className='d-flex justify-content-between align-items-center mb-2'>
@@ -248,44 +293,58 @@ const ShoppingList = () => {
         show={showModal} 
         handleClose={handleCloseModal}
         handleAction={handleSaveChanges}
-        header={'Add Item to list'}
+        header={editItemModal !== null ? 'Edit Item on list':'Add Item to list'}
       >
-        {/* <InventoryForm handleSubmit={handleSubmit} submitBtnRef={formikSubmitRef}/> New Item Form */}
-        <form id="addItemForm" onSubmit={handleSubmit} className="d-flex gap-2">
-              <select name="title" value={formData.title} onChange={handleChange} className="border p-2 rounded" required>
-                <option value="" disabled>Select Item</option>
-                {options.titles.map(title => (
-                  <option key={title} value={title}>{title}</option>
-                ))}
-              </select>
-              <input name="quantity" value={formData.quantity} onChange={handleChange} type="number" placeholder="Qty" className="border p-2 rounded" required />
-              <input name="price" value={formData.price} onChange={handleChange} type="number" placeholder="Price" className="border p-2 rounded" required />
-              <select name="category" value={formData.category} onChange={handleChange} className="border p-2 rounded" required>
-                <option value="" disabled>Select Category</option>
-                {options.categories.map(category => (
-                  <option key={category} value={category}>{category}</option>
-                ))}
-              </select>
-              <select name="addedBy" value={formData.addedBy} onChange={handleChange} className="border p-2 rounded" required>
-                <option value="" disabled>Added By</option>
-                {options.addedBy.map(user => (
-                  <option key={user} value={user}>{user}</option>
-                ))}
-              </select>
+        <ShoppingListForm handleSubmit={handleSubmit} submitBtnRef={formikSubmitRef} initialValues={editItemModal}/>
+        {/* <form id="addItemForm" onSubmit={handleSubmit} className="d-flex gap-2 flex-column">
+          <select name="title" value={formData.title} onChange={handleChange} className="border p-2 rounded" required>
+            <option value="" disabled>Select Item</option>
+            {options.titles.map(title => (
+              <option key={title} value={title}>{title}</option>
+            ))}
+          </select>
+          <input name="quantity" value={formData.quantity} onChange={handleChange} type="number" placeholder="Qty" className="border p-2 rounded" required />
+          <input name="price" value={formData.price} onChange={handleChange} type="number" placeholder="Price" className="border p-2 rounded" required />
+          <select name="category" value={formData.category} onChange={handleChange} className="border p-2 rounded" required>
+            <option value="" disabled>Select Category</option>
+            {options.categories.map(category => (
+              <option key={category} value={category}>{category}</option>
+            ))}
+          </select>
+          <select name="addedBy" value={formData.addedBy} onChange={handleChange} className="border p-2 rounded" required>
+            <option value="" disabled>Added By</option>
+            {options.addedBy.map(user => (
+              <option key={user} value={user}>{user}</option>
+            ))}
+          </select>
 
-              <select
-                name="status"
-                value={formData.status === true ? "true" : formData.status === false ? "false" : ""}
-                onChange={handleChange}
-                className="border p-2 rounded"
-                required
-              >
-                <option value="" disabled>Status</option>
-                <option value="true">Active</option>
-                <option value="false">Used</option>
-              </select>
-              <Button type="submit" variant="success" size="sm">Save</Button>
-          </form>
+          <select
+            name="status"
+            value={formData.status === true ? "true" : formData.status === false ? "false" : ""}
+            onChange={handleChange}
+            className="border p-2 rounded"
+            required
+          >
+            <option value="" disabled>Status</option>
+            <option value="true">Active</option>
+            <option value="false">Used</option>
+          </select>
+          <Button type="submit" variant="success" size="sm">Save</Button>
+        </form> */}
+      </ModalComponent>
+      <ModalComponent 
+        show={showDeleteModal} 
+        handleClose={handleCloseDeleteModal}
+        handleAction={handleSaveChanges}
+        header={'Remove Item from list'}
+        isDelete={true}
+      >
+        <div className="d-flex flex-column justify-content-center align-items-center ">
+          <span className='text-danger p-1 fs-2 rounded-circle d-flex justify-content-center align-items-center custom-bg-red-accent' style={{width:'50px',height:'50px'}}><DeleteIcon /></span>
+          <p className='fs-4 fw-bold text-danger'>Remove Item</p>
+          <span className='fs-6'>Are you sure you want to  delete this item?</span>
+          <span className='fs-6'>This action cannot be undone!</span>
+        </div>
       </ModalComponent>
     </div>
   );

@@ -1,61 +1,32 @@
 {
   "inventory": [
     {
-      "id": "1",
+      "id": "cb89",
       "title": "Tissue",
       "category": "cleaning",
-      "description": "cleaning",
+      "description": "Testing this",
+      "price": 123,
+      "status": true,
       "priceList": [
         {
           "id": "1",
-          "amount": 100,
-          "date": "12-04-2025"
+          "amount": 123,
+          "date": "2025-04-26T19:45:59.500Z"
         }
-      ],
-      "status": true
+      ]
     },
     {
-      "id": "8221",
+      "id": "1587",
       "title": "Soap",
-      "category": "toiletries",
-      "description": "Always buy 4 pieces",
-      "price": 123,
-      "status": true,
-      "priceList": [
-        {
-          "id": "1",
-          "amount": 123,
-          "date": "2025-04-25T07:36:12.105Z"
-        }
-      ]
-    },
-    {
-      "id": "aeba",
-      "title": "Detergent",
-      "category": "toiletries",
-      "description": "sa",
-      "price": 123,
-      "status": true,
-      "priceList": [
-        {
-          "id": "1",
-          "amount": 123,
-          "date": "2025-04-25T07:38:20.372Z"
-        }
-      ]
-    },
-    {
-      "id": "1efe",
-      "title": "Broom",
       "category": "cleaning",
-      "description": "asasa",
+      "description": "1232",
       "price": 123,
       "status": true,
       "priceList": [
         {
           "id": "1",
           "amount": 123,
-          "date": "2025-04-25T07:41:40.605Z"
+          "date": "2025-04-26T19:46:24.411Z"
         }
       ]
     }
@@ -82,12 +53,11 @@
       "date": "12-04-2025",
       "items": [
         {
-          "id": "1",
           "title": "Tissue",
           "category": "cleaning",
-          "quantity": 10,
-          "addedBy": "1",
-          "price": 1000,
+          "quantity": 100,
+          "price": 100,
+          "addedBy": "Dennis",
           "status": true
         }
       ],
