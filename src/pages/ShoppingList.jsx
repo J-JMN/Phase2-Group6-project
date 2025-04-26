@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Row, Col, Form, Button, Container } from 'react-bootstrap';
 import { Table } from 'react-bootstrap';
 import { AddIcon, DeleteIcon, EditIcon } from '../components/icons';
@@ -42,7 +42,7 @@ const ShoppingList = () => {
   const handleSubmit = async(data) => {
     try {
       toast.info('Saving item...', { autoClose: 1000 });
-      if(listsData?.items?.find((item)=>item?.title.trim().toLowerCase() === data?.title.trim().toLowerCase()) && editItemModal === null){
+      if(listsData?.items?.find((item)=>item?.title?.trim()?.toLowerCase() === data?.title?.trim()?.toLowerCase()) && editItemModal === null){
         throw new Error('This item already exists!')
       }
       if (editItemModal) {
@@ -197,7 +197,7 @@ const ShoppingList = () => {
 
   */
   const filteredList = listsData?.items?.filter(item =>
-    item?.title.toLowerCase().includes(searchTerm.toLowerCase())
+    item?.title?.toLowerCase().includes(searchTerm?.toLowerCase())
   );
 
   return (

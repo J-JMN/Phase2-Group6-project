@@ -86,6 +86,14 @@
           "quantity": 1,
           "price": 500,
           "addedBy": "1"
+        },
+        {
+          "title": "Tissue",
+          "category": "toiletries",
+          "quantity": 12,
+          "price": 100,
+          "addedBy": "Dennis",
+          "status": true
         }
       ],
       "status": true
