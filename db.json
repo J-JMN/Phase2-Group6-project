@@ -20,68 +20,24 @@
     ]
   },
   "inventory": [
-    {
-      "id": "cb89",
-      "title": "Tissue",
-      "category": "cleaning",
-      "description": "Testing this",
-      "price": 123,
-      "status": true,
-      "priceList": [
-        {
-          "id": "1",
-          "amount": 123,
-          "date": "2025-04-26T19:45:59.500Z"
-        }
-      ]
-    },
-    {
-      "id": "1587",
-      "title": "Soap",
-      "category": "cleaning",
-      "description": "1232",
-      "price": 123,
-      "status": true,
-      "priceList": [
-        {
-          "id": "1",
-          "amount": 123,
-          "date": "2025-04-26T19:46:24.411Z"
-        }
-      ]
-    }
+    
   ],
-  "account": {
-    "accountName": "Group 6",
-    "accountPassword": "password",
-    "members": [
-      {
-        "name": "dennis",
-        "email": "dennissammy77@gmail.com",
-        "role": "owner",
-        "id": "1"
-      }
-    ]
-  },
-  "lists": [
+  "accounts": [
     {
-      "id": "1",
-      "title": "March Shopping",
-      "description": "Buy everything",
-      "budget": 2000,
-      "spent": 3000,
-      "date": "12-04-2025",
-      "items": [
+      "accountName": "Group 6",
+      "accountPassword": "password",
+      "members": [
         {
-          "title": "Tissue",
-          "category": "cleaning",
-          "quantity": 100,
-          "price": 100,
-          "addedBy": "Dennis",
-          "status": true
+          "name": "dennis",
+          "email": "dennissammy77@gmail.com",
+          "role": "owner",
+          "id": "1"
         }
       ],
-      "status": true
+      "id":"1"
     }
+  ],
+  "lists": [
+    
   ]
 }
