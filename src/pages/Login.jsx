@@ -14,6 +14,7 @@ import { Link, useNavigate } from "react-router-dom";
 import useFetch from "../hooks/useFetch";
 import { ToastContainer } from 'react-toastify';
 import { toast } from 'react-toastify';
+import { API_URL } from '../constants/utility.js';
 
 export default function Login() {
   const [rememberMe, setRememberMe] = useState(false);
@@ -56,7 +57,7 @@ export default function Login() {
       .required("Password is required"),
   });
 
-  const { data: accountData } = useFetch('http://localhost:3000/accounts/1');  
+  const { data: accountData } = useFetch(`${API_URL}/accounts/1`);  
   const handleSubmit = async (values, { setSubmitting }) => {
     console.log(values)
     setLoginError(null);

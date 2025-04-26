@@ -7,6 +7,7 @@ import usePut from "../../hooks/usePUT";
 import useFetch from "../../hooks/useFetch";
 import { toast } from 'react-toastify';
 import { ToastContainer } from 'react-toastify';
+import { API_URL } from "../../constants/utility";
 
 const SignUpSchema = Yup.object().shape({
   name: Yup.string().required("Name is required"),
@@ -22,8 +23,8 @@ const SignUpSchema = Yup.object().shape({
 export default function SignUpForm() {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const { putData } = usePut('http://localhost:3000/accounts');
-  const { data: accountData } = useFetch('http://localhost:3000/accounts/1');
+  const { putData } = usePut(`${API_URL}/accounts`);
+  const { data: accountData } = useFetch(`${API_URL}/accounts/1`);
 
   const handleSubmit = async (values, { setSubmitting }) => {
     setError(null);

@@ -7,13 +7,14 @@ import { toast } from 'react-toastify';
 import ShoppingListForm from '../components/forms/shoppingItemForm';
 import useFetch from '../hooks/useFetch';
 import usePut from '../hooks/usePUT';
+import { API_URL } from '../constants/utility.js';
 
 const ShoppingList = () => {
   // const [shoppingList, setShoppingList] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
 
-  const { data: listsData, refetch: listsDataRefetch } = useFetch('http://localhost:3000/lists/1');
-  const { putData } = usePut('http://localhost:3000/lists');
+  const { data: listsData, refetch: listsDataRefetch } = useFetch(`${API_URL}/lists/1`);
+  const { putData } = usePut(`${API_URL}/lists`);
   /**Manage Items Modal */
   const [showModal, setShowModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);

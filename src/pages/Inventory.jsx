@@ -8,6 +8,7 @@ import InventoryForm from '../components/forms/InventoryForm';
 import { toast } from 'react-toastify';
 import usePut from '../hooks/usePUT';
 import useDelete from '../hooks/useDelete';
+import { API_URL } from '../constants/utility.js';
 
 function Inventory() {
   const [searchQuery,setsearchQuery]=useState('');
@@ -24,10 +25,10 @@ function Inventory() {
   const handleShowDeleteModal = () => setShowDeleteModal(true);
   const handleCloseDeleteModal = () => setShowDeleteModal(false);
 
-  let { data, loading, error, refetch  } = useFetch('http://localhost:3000/inventory');  
-  const { postData } = usePost('http://localhost:3000/inventory');
-  const { putData } = usePut('http://localhost:3000/inventory');
-  const { deleteData } = useDelete('http://localhost:3000/inventory');
+  let { data, loading, error, refetch  } = useFetch(`${API_URL}/inventory`);  
+  const { postData } = usePost(`${API_URL}/inventory`);
+  const { putData } = usePut(`${API_URL}/inventory`);
+  const { deleteData } = useDelete(`${API_URL}/inventory`);
   const formikSubmitRef = useRef();
 
   const handleSubmit = async(data) => {
