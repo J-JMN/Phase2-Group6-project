@@ -28,7 +28,7 @@ const ShoppingList = () => {
   console.log('with assigning variable', inventoryData)
   let { data, loading, error, refetch } = useFetch('http://localhost:3000/inventory');
   let { data: itemsData, loading: itemsDataLoading, error: itemsDataError, refetch: itemsDataRefetch } = useFetch('http://localhost:3000/items');
-  const { data: accountData, loading: accountLoading, error: accountError } = useFetch('http://localhost:3000/account'); //useFetch for account data
+  const { data: accountData, loading: accountLoading, error: accountError } = useFetch('http://localhost:3000/accounts'); //useFetch for account data
 
   console.log('without assigning variable', data)
   console.log('Dropdown/Table Data:', inventoryData);
@@ -50,9 +50,11 @@ const ShoppingList = () => {
     }
   }, [inventoryData, itemsData]);
 
-  useEffect(() => { //useEffect to display option for added by
-    if (accountData && accountData.members) {
-      const memberNames = accountData.members.map(member => member.name);
+  useEffect(() => {
+    if (accountData && Array.isArray(accountData)) {
+      const memberNames = accountData.flatMap(account =>
+        account.members.map(member => member.name)
+      );
       setOptions(prev => ({ ...prev, addedBy: memberNames }));
     }
   }, [accountData]);

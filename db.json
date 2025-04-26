@@ -79,6 +79,16 @@
           "name": "Pauline",
           "email": "pauline@gmail.com",
           "role": "member"
+        },
+        {
+          "name": "Dominic Kipkorir",
+          "email": "pkoordominic@gmail.com",
+          "role": "member"
+        },
+        {
+          "name": "Dominic ",
+          "email": "ivanpavlova7@gmail.com",
+          "role": "member"
         }
       ],
       "id": "1"
@@ -92,6 +102,15 @@
       "price": 123,
       "category": "toiletries",
       "addedBy": "dennis",
+      "status": false
+    },
+    {
+      "id": "4a7a",
+      "title": "Soap",
+      "quantity": "3",
+      "price": 123,
+      "category": "toiletries",
+      "addedBy": "Sammy",
       "status": false
     }
   ],
