@@ -60,6 +60,30 @@
       ]
     }
   ],
+  "accounts": [
+    {
+      "accountName": "Group 6",
+      "accountPassword": "password",
+      "members": [
+        {
+          "name": "Dennis",
+          "email": "dennissammy77@gmail.com",
+          "role": "owner"
+        },
+        {
+          "name": "Sammy",
+          "email": "sammymusembi727@gmail.com",
+          "role": "member"
+        },
+        {
+          "name": "Pauline",
+          "email": "pauline@gmail.com",
+          "role": "member"
+        }
+      ],
+      "id": "1"
+    }
+  ],
   "items": [
     {
       "id": "77e9",
@@ -71,23 +95,6 @@
       "status": false
     }
   ],
-  "account": {
-    "name": "Group 6",
-    "password": "password",
-    "members": [
-      {
-        "name": "dennis",
-        "email": "dennissammy77@gmail.com",
-        "role": "owner",
-        "id": "1"
-      }
-    ],
-    "categories": [
-      "cleaning",
-      "groceries"
-    ],
-    "status": true
-  },
   "templates": [
     {
       "id": "1",
