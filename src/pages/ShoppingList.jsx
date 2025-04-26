@@ -42,18 +42,18 @@ const ShoppingList = () => {
   const handleSubmit = async(data) => {
     try {
       toast.info('Saving item...', { autoClose: 1000 });
-      if(listsData.items?.find((item)=>item?.title.trim().toLowerCase() === data?.title.trim().toLowerCase()) && editItemModal === null){
+      if(listsData?.items?.find((item)=>item?.title.trim().toLowerCase() === data?.title.trim().toLowerCase()) && editItemModal === null){
         throw new Error('This item already exists!')
       }
       if (editItemModal) {
         // Editing
-        const updatedItems = listsData.items.map((item) =>
-          item.title === editItemModal.title ? { ...item, ...data } : item
+        const updatedItems = listsData?.items.map((item) =>
+          item.title === editItemModal?.title ? { ...item, ...data } : item
         );
         await putData({ ...listsData, items: updatedItems },'1');
       } else {
         // Adding
-        const updatedItems = [...(listsData.items || []), data];
+        const updatedItems = [...(listsData?.items || []), data];
         await putData({ ...listsData, items: updatedItems },'1');
       }
       //await putData(listsData,'1'); // this now returns data or throws  
@@ -258,7 +258,7 @@ const ShoppingList = () => {
 
                 <td style={{width: "200px"}}>
                   <div className="d-flex flex-grow gap-2">
-                    <button className='btn btn-sm btn-outline-dark gap-2 align-items-center'  onClick={(()=>{handleEditItem(item)})}><EditIcon /> Manage</button>
+                    <button className='btn btn-sm btn-outline-dark gap-2 align-items-center' onClick={(()=>{handleEditItem(item)})}><EditIcon /> Manage</button>
                     <button className='btn btn-sm gap-2 align-items-center custom-bg-red-accent' onClick={(()=>{handleDeleteItem(item)})}><DeleteIcon /> Delete</button>
                   </div>
                 </td>
@@ -281,10 +281,10 @@ const ShoppingList = () => {
               <p className="mb-1">{item?.category}</p>
               <p className="mb-2">{item?.price}</p>
               <div className="d-flex gap-2">
-                <Button variant="outline-dark" size="sm">
+                <Button variant="outline-dark" size="sm" onClick={(()=>{handleEditItem(item)})}>
                   <EditIcon /> Manage
                 </Button>
-                <Button variant="danger" size="sm">
+                <Button variant="danger" size="sm" onClick={(()=>{handleDeleteItem(item)})}>
                   <DeleteIcon /> Delete
                 </Button>
               </div>
