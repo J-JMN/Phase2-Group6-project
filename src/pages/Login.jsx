@@ -69,7 +69,10 @@ export default function Login() {
         throw new Error('The account password is incorrect')
       };
       // check if user exists within team account
-      const existingMember = accountData?.members.find((member)=> member.email === email);
+      if(accountData?.members === 0){
+        throw new Error('You dont have an account!');
+      }
+      const existingMember = accountData?.members?.find((member)=> member?.email === email);
       if(!existingMember){
         throw new Error('You dont have an account!');
       };

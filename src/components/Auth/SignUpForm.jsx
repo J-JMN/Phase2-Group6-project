@@ -35,7 +35,7 @@ export default function SignUpForm() {
         throw new Error('The passwords do not match')
       };
       // check if username already exists
-      const existingMember = accountData?.members.find((member)=> member.email === email || member.name === name);
+      const existingMember = accountData?.members?.find((member)=> member?.email === email || member?.name === name);
       if(existingMember){
         throw new Error('An account with this email or name already exists!');
       };

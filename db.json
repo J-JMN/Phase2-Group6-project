@@ -74,6 +74,11 @@
           "name": "Sammy",
           "email": "sammymusembi727@gmail.com",
           "role": "member"
+        },
+        {
+          "name": "Pauline",
+          "email": "pauline@gmail.com",
+          "role": "member"
         }
       ],
       "id": "1"
