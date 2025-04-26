@@ -1,9 +1,10 @@
-import { Form, Button, FloatingLabel, Container } from "react-bootstrap";
+import { Form, Button, FloatingLabel, Alert, Spinner } from "react-bootstrap";
 import { Formik, Field, ErrorMessage } from "formik";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
+import { useState } from "react";
 
-const RegisterSchema = Yup.object().shape({
+const SignUpSchema = Yup.object().shape({
   name: Yup.string().required("Name is required"),
   email: Yup.string().email("Invalid email").required("Email is required"),
   password: Yup.string()
@@ -15,8 +16,52 @@ const RegisterSchema = Yup.object().shape({
 });
 
 export default function SignUpForm() {
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+
+  const handleSubmit = async (values, { setSubmitting }) => {
+    setError(null);
+    try {
+      //fetching data and error handling
+      const response = await fetch("http://localhost:5173/api/auth/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: values.name,
+          email: values.email,
+          password: values.password,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Signup failed");
+      }
+
+      //successfull login
+      //redirect
+      console.log("Signup successful:", data);
+      navigate("/login"); 
+    } catch (err) {
+      console.error("Signup error:", err);
+      setError(err.message || "Signup failed. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
   return (
-    <Container className="mt-5">
+    <>
+      <div className="text-align-center d-flex flex-column align-items-center justify-content-center w-100 my-4">
+        <h4 className="mb-3">Create Account</h4>
+        <h3 className="text-muted mb-4">Join ShopMate today</h3>
+      </div>
+
+      {error && <Alert variant="danger">{error}</Alert>}
+
       <Formik
         initialValues={{
           name: "",
@@ -24,27 +69,18 @@ export default function SignUpForm() {
           password: "",
           confirmPassword: "",
         }}
-        validationSchema={RegisterSchema}
-        onSubmit={(values, { setSubmitting }) => {
-          console.log("Register submitted:", values);
-          setSubmitting(false);
-        }}
+        validationSchema={SignUpSchema}
+        onSubmit={handleSubmit}
       >
-        {({ isSubmitting, handleSubmit }) => (
-          <Form
-            onSubmit={handleSubmit}
-            className="border p-4 rounded-3 shadow-sm"
-          >
-            <h2 className="text-center mb-4">Create Account</h2>
-            <p className="text-center text-muted mb-4">Join ShopMate today</p>
-
+        {({ isSubmitting, handleSubmit, errors, touched }) => (
+          <Form onSubmit={handleSubmit}>
             <FloatingLabel controlId="name" label="Full Name" className="mb-3">
               <Field name="name">
-                {({ field, meta }) => (
+                {({ field }) => (
                   <Form.Control
                     type="text"
                     placeholder="Enter your name"
-                    isInvalid={meta.touched && meta.error}
+                    isInvalid={touched.name && !!errors.name}
                     {...field}
                   />
                 )}
@@ -52,17 +88,21 @@ export default function SignUpForm() {
               <ErrorMessage
                 name="name"
                 component="div"
-                className="text-danger small mt-1"
+                className="text-danger small"
               />
             </FloatingLabel>
 
-            <FloatingLabel controlId="email" label="Email" className="mb-3">
+            <FloatingLabel
+              controlId="email"
+              label="Email Address"
+              className="mb-3"
+            >
               <Field name="email">
-                {({ field, meta }) => (
+                {({ field }) => (
                   <Form.Control
                     type="email"
                     placeholder="Enter email"
-                    isInvalid={meta.touched && meta.error}
+                    isInvalid={touched.email && !!errors.email}
                     {...field}
                   />
                 )}
@@ -70,7 +110,7 @@ export default function SignUpForm() {
               <ErrorMessage
                 name="email"
                 component="div"
-                className="text-danger small mt-1"
+                className="text-danger small"
               />
             </FloatingLabel>
 
@@ -80,11 +120,11 @@ export default function SignUpForm() {
               className="mb-3"
             >
               <Field name="password">
-                {({ field, meta }) => (
+                {({ field }) => (
                   <Form.Control
                     type="password"
                     placeholder="Create password"
-                    isInvalid={meta.touched && meta.error}
+                    isInvalid={touched.password && !!errors.password}
                     {...field}
                   />
                 )}
@@ -92,7 +132,7 @@ export default function SignUpForm() {
               <ErrorMessage
                 name="password"
                 component="div"
-                className="text-danger small mt-1"
+                className="text-danger small"
               />
             </FloatingLabel>
 
@@ -102,11 +142,13 @@ export default function SignUpForm() {
               className="mb-4"
             >
               <Field name="confirmPassword">
-                {({ field, meta }) => (
+                {({ field }) => (
                   <Form.Control
                     type="password"
                     placeholder="Confirm password"
-                    isInvalid={meta.touched && meta.error}
+                    isInvalid={
+                      touched.confirmPassword && !!errors.confirmPassword
+                    }
                     {...field}
                   />
                 )}
@@ -114,26 +156,38 @@ export default function SignUpForm() {
               <ErrorMessage
                 name="confirmPassword"
                 component="div"
-                className="text-danger small mt-1"
+                className="text-danger small"
               />
             </FloatingLabel>
 
-            <div className="d-grid mb-3">
-              <Button
-                variant="primary"
-                type="submit"
-                size="lg"
-                style={{
-                  backgroundColor: "#2a5c45",
-                  border: "none",
-                  borderRadius: "6px",
-                  padding: "10px",
-                }}
-                disabled={isSubmitting}
-              >
-                Sign Up
-              </Button>
-            </div>
+            <Button
+              variant="success"
+              type="submit"
+              className="w-100 mb-3"
+              style={{
+                backgroundColor: "#2a5c45",
+                border: "none",
+                borderRadius: "6px",
+                padding: "10px",
+              }}
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? (
+                <>
+                  <Spinner
+                    as="span"
+                    animation="border"
+                    size="sm"
+                    role="status"
+                    aria-hidden="true"
+                    className="me-2"
+                  />
+                  Signing up...
+                </>
+              ) : (
+                "Sign Up"
+              )}
+            </Button>
 
             <p className="text-center mt-3" style={{ fontSize: "14px" }}>
               Already have an account?{" "}
@@ -144,6 +198,6 @@ export default function SignUpForm() {
           </Form>
         )}
       </Formik>
-    </Container>
+    </>
   );
 }
