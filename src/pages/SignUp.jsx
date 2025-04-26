@@ -29,12 +29,9 @@ export default function SignUp() {
     <AuthLayout>
       <div className="d-flex w-100 m-auto justify-content-center align-items-center">
         <div
-          className="d-flex flex-column rounded w-md-50 custom-bg-base"
+          className="d-flex flex-column rounded w-md-50 bg-white shadow"
           style={{ padding: "32px" }}
         >
-          <div className="text-end mb-3">
-            <CloseButton onClick={() => window.history.back()} />
-          </div>
           <SignUpForm />
         </div>
       </div>
