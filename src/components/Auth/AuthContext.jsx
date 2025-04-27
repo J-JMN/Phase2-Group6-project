@@ -6,26 +6,35 @@ const AuthContext = createContext();
 export function AuthProvider({ children }) {
   const navigate = useNavigate();
   const [isAuthenticated, setAuthenticated] = useState(false);
-  const user = JSON.parse(localStorage.getItem("signedInUser"));
+  const [user, setUser] = useState(null);
 
-  useEffect(()=>{
-    if(user){
-      setAuthenticated(true)
-    }else{
-      setAuthenticated(false)
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem("signedInUser"));
+    if (storedUser) {
+      setUser(storedUser);
+      setAuthenticated(true);
+    } else {
+      setAuthenticated(false);
       navigate("/login");
     }
-  },[])
+  }, [navigate]); 
 
-  const login = () => setAuthenticated(true);
+  const login = (userData) => {
+    setUser(userData);
+    localStorage.setItem("signedInUser", JSON.stringify(userData));
+    setAuthenticated(true);
+    navigate("/home"); 
+  };
+
   const logout = () => {
-    setAuthenticated(false)
+    setAuthenticated(false);
+    setUser(null);
+    localStorage.removeItem("signedInUser");
     navigate("/login");
-    localStorage.removeItem("signedInUser")
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout, user }}>
+    <AuthContext.Provider value={{ isAuthenticated, user, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

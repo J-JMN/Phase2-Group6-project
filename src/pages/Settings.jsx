@@ -5,21 +5,15 @@ import SettingsForm from "../components/SettingsForm";
 import CategoryManager from "../components/CategoryManager";
 import MemberManager from "../components/MemberManager";
 import { ToastContainer, toast } from "react-toastify";
+import { Navigate } from "react-router-dom"; 
 
 export default function SettingsPage() {
-  const { logout } = useAuth();
+  const { isAuthenticated, user, logout } = useAuth();
   const { settings, updateSettings } = useSettingsData();
 
-  // if (!isAuthenticated) {
-  //   return (
-  //     <div className="d-flex flex-column align-items-center mt-5">
-  //       <h2>You must log in to view Settings</h2>
-  //       <button className="btn btn-primary mt-3" onClick={login}>
-  //         Log In
-  //       </button>
-  //     </div>
-  //   );
-  // }
+  if (!isAuthenticated) {
+    return <Navigate to="/login" replace />;
+  }
 
   if (!settings) return <p>Loading...</p>;
 
@@ -51,7 +45,6 @@ export default function SettingsPage() {
           }}
           onSubmit={handleFormSubmit}
         />
-
         <CategoryManager
           categories={settings.categories}
           onChange={(cats) => updateSettings({ ...settings, categories: cats })}
