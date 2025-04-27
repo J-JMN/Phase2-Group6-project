@@ -1,24 +1,4 @@
 {
-  "settings": {
-    "accountName": "Group 6 edited",
-    "accountPassword": "password",
-    "categories": [
-      {
-        "id": "1",
-        "name": [
-          "cleaning"
-        ]
-      }
-    ],
-    "members": [
-      {
-        "name": "dennis",
-        "email": "dennissammy77@gmail.com",
-        "role": "member",
-        "id": "1"
-      }
-    ]
-  },
   "inventory": [
     {
       "title": "Tissue",
