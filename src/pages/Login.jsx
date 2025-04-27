@@ -3,7 +3,7 @@ import LoginForm from "../components/Auth/LoginForm";
 import React from "react";
 import { Carousel } from "react-bootstrap";
 
-// Move carousel content to a shared constant file if used in multiple pages
+
 const CAROUSEL_CONTENT = [
   {
     logo: "ShopMate",
