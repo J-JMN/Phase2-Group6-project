@@ -2,6 +2,8 @@ import React from 'react';
 import { Formik, Field, Form } from 'formik';
 import * as Yup from "yup";
 import useFetch from '../../hooks/useFetch';
+import { useAuth } from '../Auth/AuthContext';
+
 
 const ItemSchema = Yup.object().shape({
   title: Yup.string().required('Required'),
@@ -15,12 +17,13 @@ const ItemSchema = Yup.object().shape({
 export default function ShoppingListForm({handleSubmit,submitBtnRef, initialValues }) {
   const { data: inventoryItems } = useFetch('http://localhost:3000/inventory')
   console.log(initialValues)
+  const { user } = useAuth();
   const defaultValues = {
     title: '',
     category: '',
     quantity: '',
     price: '',
-    addedBy: 'Dennis',
+    addedBy: user?.name || 'User',
     status: true,
   };
   return (
