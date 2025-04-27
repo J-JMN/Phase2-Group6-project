@@ -1,78 +1,53 @@
 {
   "inventory": [
     {
-      "id": "1",
       "title": "Tissue",
-      "category": "cleaning",
-      "description": "cleaning",
+      "category": "groceries",
+      "description": "",
+      "price": 12312,
+      "status": true,
       "priceList": [
         {
           "id": "1",
-          "amount": 100,
-          "date": "12-04-2025"
+          "amount": 12312,
+          "date": "2025-04-27T13:01:20.056Z"
         }
       ],
-      "status": true
-    },
+      "id": 1
+    }
+  ],
+  "accounts": [
     {
-      "id": "8221",
-      "title": "Soap",
-      "category": "toiletries",
-      "description": "Always buy 4 pieces",
-      "price": 123,
-      "status": true,
-      "priceList": [
+      "accountName": "Group",
+      "accountPassword": "password",
+      "members": [
         {
-          "id": "1",
-          "amount": 123,
-          "date": "2025-04-25T07:36:12.105Z"
+          "name": "Joseph",
+          "email": "hermanzzjj@gmail.com",
+          "role": "owner",
+          "id": "1"
+        },
+        {
+          "id": "1745757945024",
+          "name": "Dennis",
+          "email": "dennissammy77@gmail.com",
+          "role": "member"
         }
-      ]
-    },
-    {
-      "id": "aeba",
-      "title": "Detergent",
-      "category": "toiletries",
-      "description": "sa",
-      "price": 123,
-      "status": true,
-      "priceList": [
+      ],
+      "id": "1",
+      "categories": [
         {
-          "id": "1",
-          "amount": 123,
-          "date": "2025-04-25T07:38:20.372Z"
-        }
-      ]
-    },
-    {
-      "id": "1efe",
-      "title": "Broom",
-      "category": "cleaning",
-      "description": "asasa",
-      "price": 123,
-      "status": true,
-      "priceList": [
+          "id": "1745757897036",
+          "name": "Toiletries"
+        },
         {
-          "id": "1",
-          "amount": 123,
-          "date": "2025-04-25T07:41:40.605Z"
+          "id": "1745757902322",
+          "name": "Groceries"
         }
       ]
     }
   ],
-  "account": {
-    "accountName": "Group 6",
-    "accountPassword": "password",
-    "members": [
-      {
-        "name": "dennis",
-        "email": "dennissammy77@gmail.com",
-        "role": "owner",
-        "id": "1"
-      }
-    ]
-  },
-  "templates": [
+  "lists": [
     {
       "id": "1",
       "title": "March Shopping",
@@ -82,16 +57,12 @@
       "date": "12-04-2025",
       "items": [
         {
-          "id": "1",
-          "quantity": 10,
-          "price": 100,
-          "addedBy": "1"
-        },
-        {
-          "id": "2",
-          "quantity": 1,
-          "price": 500,
-          "addedBy": "1"
+          "title": "Tissue",
+          "category": "groceries",
+          "quantity": 12,
+          "price": 12312,
+          "addedBy": "Jessie",
+          "status": true
         }
       ],
       "status": true
