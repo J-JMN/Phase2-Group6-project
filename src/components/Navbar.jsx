@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom';
 import { useAuth } from './Auth/AuthContext';
 
 const Navbar = () => {
-  const { logout, user } = useAuth();
+  const { user } = useAuth();
   return (
     <nav className="navbar px-3">
       <div className="container-fluid">

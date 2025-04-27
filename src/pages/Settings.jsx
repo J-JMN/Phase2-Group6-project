@@ -7,19 +7,19 @@ import MemberManager from "../components/MemberManager";
 import { ToastContainer, toast } from "react-toastify";
 
 export default function SettingsPage() {
-  const { isAuthenticated, login, logout } = useAuth();
+  const { logout } = useAuth();
   const { settings, updateSettings } = useSettingsData();
 
-  if (!isAuthenticated) {
-    return (
-      <div className="d-flex flex-column align-items-center mt-5">
-        <h2>You must log in to view Settings</h2>
-        <button className="btn btn-primary mt-3" onClick={login}>
-          Log In
-        </button>
-      </div>
-    );
-  }
+  // if (!isAuthenticated) {
+  //   return (
+  //     <div className="d-flex flex-column align-items-center mt-5">
+  //       <h2>You must log in to view Settings</h2>
+  //       <button className="btn btn-primary mt-3" onClick={login}>
+  //         Log In
+  //       </button>
+  //     </div>
+  //   );
+  // }
 
   if (!settings) return <p>Loading...</p>;
 
@@ -36,7 +36,7 @@ export default function SettingsPage() {
     <div className="d-flex w-md-50 m-auto justify-content-center align-items-center h-100">
       <div className="d-flex flex-column rounded w-md-50 custom-bg-base" style={{ padding: "32px" }}>
         <div className="d-flex justify-content-between align-items-center">
-          <h3 className="display-6 custom-text-color-primary fw-bold mb-4">
+          <h3 className="display-6 custom-text-color-primary fw-bold mb-0">
             Settings
           </h3>
           <button className="btn btn-sm btn-outline-secondary" onClick={logout}>
