@@ -1,27 +1,44 @@
+import { AuthProvider } from "./components/Auth/AuthContext";
 import App from "./App";
-import Inventory from "./pages/Inventory";
 import Login from "./pages/Login";
-import SettingsPage from "./pages/Settings";
-import ShoppingList from "./pages/ShoppingList";
 import SignUp from "./pages/SignUp";
-import { AuthProvider } from "./components/Auth/AuthContext"; 
+import ShoppingList from "./pages/ShoppingList";
+import Inventory from "./pages/Inventory";
+import SettingsPage from "./pages/Settings";
+
+const AuthLayout = ({ children }) => <AuthProvider>{children}</AuthProvider>;
 
 const routes = [
   {
     path: "/",
     element: (
-      <AuthProvider>
+      <AuthLayout>
         <App />
-      </AuthProvider>
-    ), 
+      </AuthLayout>
+    ),
     children: [
+      { index: true, element: <ShoppingList /> },
       { path: "home", element: <ShoppingList /> },
       { path: "inventory", element: <Inventory /> },
-      { path: "settings", element: <SettingsPage />},
+      { path: "settings", element: <SettingsPage /> },
     ],
   },
-  { path: "login", element: <Login /> },
-  { path: "signUp", element: <SignUp /> },
+  {
+    path: "/login",
+    element: (
+      <AuthLayout>
+        <Login />
+      </AuthLayout>
+    ),
+  },
+  {
+    path: "/signup",
+    element: (
+      <AuthLayout>
+        <SignUp />
+      </AuthLayout>
+    ),
+  },
 ];
 
 export default routes;
