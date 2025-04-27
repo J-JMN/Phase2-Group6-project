@@ -59,8 +59,27 @@
         {
           "name": "dennis",
           "email": "dennissammy77@gmail.com",
-          "role": "owner",
-          "id": "1"
+          "role": "owner"
+        },
+        {
+          "name": "Sammy",
+          "email": "sammymusembi727@gmail.com",
+          "role": "member"
+        },
+        {
+          "name": "Pauline",
+          "email": "pauline@gmail.com",
+          "role": "member"
+        },
+        {
+          "name": "Dominic Kipkorir",
+          "email": "pkoordominic@gmail.com",
+          "role": "member"
+        },
+        {
+          "name": "Dominic ",
+          "email": "ivanpavlova7@gmail.com",
+          "role": "member"
         }
       ],
       "id": "1"
