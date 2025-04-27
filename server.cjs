@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 3001;
 server.use(express.static(path.join(__dirname, 'dist')));
 //define route of access
 server.use('/api',router);
-server.use('/api',middlewares);
+server.use(middlewares);
 // catch all routes availbale
 server.get('*',(req,res)=>{
     res.sendFile(path.join(__dirname, 'dist','index.html'))
