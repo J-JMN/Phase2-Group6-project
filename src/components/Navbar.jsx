@@ -45,7 +45,7 @@ const Navbar = () => {
         </div>
         <div className="offcanvas-body">
           <div className="d-flex flex-column gap-3 fs-5">
-            <MenuLinks />
+            <MenuLinks user={user}/>
           </div>
         </div>
       </div>
