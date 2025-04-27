@@ -34,7 +34,7 @@ export default function SettingsPage() {
 
   return (
     <div className="d-flex w-md-50 m-auto justify-content-center align-items-center h-100">
-      <div className="d-flex flex-column rounded w-md-50 custom-bg-base" style={{ padding: "32px" }}>
+      <div className="d-flex flex-column rounded w-md-50 bg-white" style={{ padding: "32px" }}>
         <div className="d-flex justify-content-between align-items-center">
           <h3 className="display-6 custom-text-color-primary fw-bold mb-0">
             Settings
