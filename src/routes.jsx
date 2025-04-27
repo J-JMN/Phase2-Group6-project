@@ -9,18 +9,15 @@ import { AuthProvider } from "./components/Auth/AuthContext";
 const routes = [
   {
     path: "/",
-    element: <App />, 
+    element: (
+      <AuthProvider>
+        <App />
+      </AuthProvider>
+    ), 
     children: [
       { path: "home", element: <ShoppingList /> },
       { path: "inventory", element: <Inventory /> },
-      {
-        path: "settings",
-        element: (
-          <AuthProvider>
-            <SettingsPage />
-          </AuthProvider>
-        ),
-      },
+      { path: "settings", element: <SettingsPage />},
     ],
   },
   { path: "login", element: <Login /> },
