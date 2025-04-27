@@ -40,18 +40,18 @@ export default function SettingsPage() {
 
         <SettingsForm
           initialValues={{
-            accountName: settings.accountName,
-            accountPassword: settings.accountPassword,
+            accountName: settings?.accountName,
+            accountPassword: settings?.accountPassword,
           }}
           onSubmit={handleFormSubmit}
         />
         <CategoryManager
-          categories={settings.categories}
+          categories={settings?.categories}
           onChange={(cats) => updateSettings({ ...settings, categories: cats })}
         />
 
         <MemberManager
-          members={settings.members}
+          members={settings?.members}
           onChange={(mems) => updateSettings({ ...settings, members: mems })}
         />
 

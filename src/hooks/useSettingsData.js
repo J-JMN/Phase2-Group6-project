@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { API_URL } from "../constants/utility";
 
-const SETTINGS_URL = "http://localhost:3000/accounts/1";
+const SETTINGS_URL = `${API_URL}/api/accounts/1`;
 
 export default function useSettingsData() {
   const [settings, setSettings] = useState(null);

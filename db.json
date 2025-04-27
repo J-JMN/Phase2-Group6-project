@@ -21,34 +21,19 @@
   },
   "inventory": [
     {
-      "id": "2ef3",
       "title": "Tissue",
-      "category": "toiletries",
+      "category": "groceries",
       "description": "",
-      "price": 100,
+      "price": 12312,
       "status": true,
       "priceList": [
         {
           "id": "1",
-          "amount": 100,
-          "date": "2025-04-26T20:04:31.583Z"
+          "amount": 12312,
+          "date": "2025-04-27T13:01:20.056Z"
         }
-      ]
-    },
-    {
-      "id": "abe8",
-      "title": "Soap",
-      "category": "cleaning",
-      "description": "",
-      "price": 123,
-      "status": true,
-      "priceList": [
-        {
-          "id": "1",
-          "amount": 123,
-          "date": "2025-04-26T20:04:55.000Z"
-        }
-      ]
+      ],
+      "id": 1
     }
   ],
   "accounts": [
@@ -93,10 +78,10 @@
       "items": [
         {
           "title": "Tissue",
-          "category": "toiletries",
+          "category": "groceries",
           "quantity": 12,
-          "price": 100,
-          "addedBy": "Dennis",
+          "price": 12312,
+          "addedBy": "Jessie",
           "status": true
         }
       ],
