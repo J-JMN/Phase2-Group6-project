@@ -3,6 +3,7 @@ import { Form, Button, FloatingLabel, Alert, Spinner } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import * as Yup from "yup";
 import { useState } from "react";
+import { API_URL } from "../../constants/utility";
 
 function LoginForm({ onLoginSuccess }) {
   const [rememberMe, setRememberMe] = useState(false);
@@ -24,7 +25,7 @@ function LoginForm({ onLoginSuccess }) {
 
     try {
       //data fetching and error handling
-      const response = await fetch(`http://localhost:5173/api/auth/login`, {
+      const response = await fetch(`${API_URL}/api/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
