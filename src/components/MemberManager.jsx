@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
+import { useAuth } from "../components/Auth/AuthContext"; 
 
 export default function MemberManager({ members, onChange }) {
+  const { user } = useAuth(); // Get current logged-in user
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [role, setRole] = useState("member");
@@ -12,7 +14,6 @@ export default function MemberManager({ members, onChange }) {
       return;
     }
 
-    // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email.trim())) {
       toast.error("Please enter a valid email address");
@@ -43,6 +44,16 @@ export default function MemberManager({ members, onChange }) {
     const memberToRemove = members.find((m) => m.id === id);
     if (!memberToRemove) return;
 
+    if (user?.role !== "owner") {
+      toast.error("Only the owner can remove members");
+      return;
+    }
+
+    if (memberToRemove.role === "owner") {
+      toast.error("Cannot remove the owner");
+      return;
+    }
+
     const updatedMembers = members.filter((m) => m.id !== id);
     onChange(updatedMembers);
     toast.success(`Member "${memberToRemove.name}" removed`);
@@ -52,7 +63,7 @@ export default function MemberManager({ members, onChange }) {
     <div className="my-4">
       <label className="form-label">Group Members</label>
       <div className="w-100">
-        {members?.map((member,index) => (
+        {members?.map((member, index) => (
           <div
             key={index}
             className="d-flex justify-content-between align-items-center border p-2 rounded my-1"
@@ -60,12 +71,15 @@ export default function MemberManager({ members, onChange }) {
             <span>
               {member.name} ({member.role})
             </span>
-            <button
-              className="btn btn-sm btn-secondary custom-bg-secondary"
-              onClick={() => handleRemove(member.id)}
-            >
-              Remove
-            </button>
+
+            {user?.role === "owner" && member.role !== "owner" && (
+              <button
+                className="btn btn-sm btn-secondary custom-bg-secondary"
+                onClick={() => handleRemove(member.id)}
+              >
+                Remove
+              </button>
+            )}
           </div>
         ))}
       </div>
@@ -103,6 +117,10 @@ export default function MemberManager({ members, onChange }) {
     </div>
   );
 }
+
+
+
+
 
 
 

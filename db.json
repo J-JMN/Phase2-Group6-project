@@ -1,94 +1,48 @@
 {
-  "settings": {
-    "accountName": "Group 6 edited",
-    "accountPassword": "password",
-    "categories": [
-      {
-        "id": "1",
-        "name": [
-          "cleaning"
-        ]
-      }
-    ],
-    "members": [
-      {
-        "name": "dennis",
-        "email": "dennissammy77@gmail.com",
-        "role": "member",
-        "id": "1"
-      }
-    ]
-  },
   "inventory": [
     {
-      "id": "2ef3",
       "title": "Tissue",
-      "category": "toiletries",
+      "category": "groceries",
       "description": "",
-      "price": 100,
+      "price": 12312,
       "status": true,
       "priceList": [
         {
           "id": "1",
-          "amount": 100,
-          "date": "2025-04-26T20:04:31.583Z"
+          "amount": 12312,
+          "date": "2025-04-27T13:01:20.056Z"
         }
-      ]
-    },
-    {
-      "id": "abe8",
-      "title": "Soap",
-      "category": "cleaning",
-      "description": "",
-      "price": 123,
-      "status": true,
-      "priceList": [
-        {
-          "id": "1",
-          "amount": 123,
-          "date": "2025-04-26T20:04:55.000Z"
-        }
-      ]
+      ],
+      "id": 1
     }
   ],
   "accounts": [
     {
-      "accountName": "Group 6 edited",
+      "accountName": "Group",
       "accountPassword": "password",
       "members": [
         {
-          "name": "dennis",
-          "email": "dennissammy77@gmail.com",
+          "name": "Joseph",
+          "email": "hermanzzjj@gmail.com",
           "role": "owner",
           "id": "1"
         },
         {
-          "name": "Jessie",
-          "email": "jessie77@gmail.com",
-          "role": "member"
-        },
-        {
-          "id": "1745753684510",
-          "name": "ALex",
-          "email": "alex@gmail.com",
-          "role": "member"
-        },
-        {
-          "name": "Dominic Kipkorir",
-          "email": "pkoordominic@gmail.com",
-          "role": "member"
-        },
-        {
-          "name": "Dominic ",
-          "email": "ivanpavlova7@gmail.com",
+          "id": "1745757945024",
+          "name": "Dennis",
+          "email": "dennissammy77@gmail.com",
           "role": "member"
         }
       ],
       "id": "1",
       "categories": [
         {
-          "id": "1745753858541",
-          "name": "asasa"
+          "id": "1745757897036",
+          "name": "Toiletries"
+        },
+        {
+          "id": "1745757902322",
+          "name": "Groceries"
         }
       ]
     }
@@ -104,10 +58,10 @@
       "items": [
         {
           "title": "Tissue",
-          "category": "toiletries",
+          "category": "groceries",
           "quantity": 12,
-          "price": 100,
-          "addedBy": "Dennis",
+          "price": 12312,
+          "addedBy": "Jessie",
           "status": true
         }
       ],

@@ -7,7 +7,7 @@ const useMembers = (members, setMembers) => {
       return;
     }
 
-    if (members.find((m) => m.name.toLowerCase() === name.toLowerCase())) {
+    if (members.find((m) => m?.name?.toLowerCase() === name?.toLowerCase())) {
       toast.warning("Member already exists");
       return;
     }
