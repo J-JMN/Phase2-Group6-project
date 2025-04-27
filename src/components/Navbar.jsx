@@ -1,6 +1,8 @@
 import { NavLink } from 'react-router-dom';
+import { useAuth } from './Auth/AuthContext';
 
 const Navbar = () => {
+  const { logout, user } = useAuth();
   return (
     <nav className="navbar px-3">
       <div className="container-fluid">
@@ -24,7 +26,7 @@ const Navbar = () => {
 
         {/* Desktop Menu */}
         <div className="d-none d-lg-flex flex-row gap-4 align-items-center p-2 px-4 fs-5 ms-auto">
-          <MenuLinks />
+          <MenuLinks user={user}/>
         </div>
       </div>
 
@@ -52,7 +54,7 @@ const Navbar = () => {
 };
 
 // Separate MenuLinks for reuse
-const MenuLinks = () => (
+const MenuLinks = ({user}) => (
   <>
     <NavLink
       to="/home"
@@ -98,8 +100,8 @@ const MenuLinks = () => (
       <div className="d-flex align-items-center gap-2">
         <div className="rounded-circle bg-warning" style={{ width: '40px', height: '40px' }}></div>
         <div className="d-flex flex-column">
-          <span className="fw-bold text-dark">User</span>
-          <span className="text-muted small">owner</span>
+          <span className="fw-bold text-dark my-0" style={{fontSize:'medium'}}>{user?.name || 'User'}</span>
+          <span className="text-muted small my-0" style={{fontSize:'small'}}>{user?.role || 'Member'}</span>
         </div>
       </div>
     </NavLink>
