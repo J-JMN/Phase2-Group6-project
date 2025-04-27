@@ -12,16 +12,23 @@ export function AuthProvider({ children }) {
     const storedUser = JSON.parse(localStorage.getItem("signedInUser"));
     if (storedUser) {
       setUser(storedUser);
-      setAuthenticated(true);
+      setAuthenticated(true); 
     } else {
       setAuthenticated(false);
-      navigate("/login");
     }
-  }, [navigate]); 
+  }, []); 
+
+  useEffect(() => {
+    if (isAuthenticated && window.location.pathname === '/login') {
+      navigate("/home"); 
+    } else if (!isAuthenticated && window.location.pathname !== '/login') {
+      navigate("/login"); 
+    }
+  }, [isAuthenticated, navigate]); 
 
   const login = (userData) => {
     setUser(userData);
-    localStorage.setItem("signedInUser", JSON.stringify(userData));
+    localStorage.setItem("signedInUser", JSON.stringify(userData)); 
     setAuthenticated(true);
     navigate("/home"); 
   };
@@ -29,8 +36,8 @@ export function AuthProvider({ children }) {
   const logout = () => {
     setAuthenticated(false);
     setUser(null);
-    localStorage.removeItem("signedInUser");
-    navigate("/login");
+    localStorage.removeItem("signedInUser"); 
+    navigate("/login"); 
   };
 
   return (
@@ -43,4 +50,3 @@ export function AuthProvider({ children }) {
 export function useAuth() {
   return useContext(AuthContext);
 }
-
