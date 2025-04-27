@@ -1,6 +1,6 @@
 {
   "settings": {
-    "accountName": "Group 6",
+    "accountName": "Group 6 edited",
     "accountPassword": "password",
     "categories": [
       {
@@ -38,7 +38,7 @@
   ],
   "accounts": [
     {
-      "accountName": "Group 6",
+      "accountName": "Group 6 edited",
       "accountPassword": "password",
       "members": [
         {
@@ -46,9 +46,36 @@
           "email": "dennissammy77@gmail.com",
           "role": "owner",
           "id": "1"
+        },
+        {
+          "name": "Jessie",
+          "email": "jessie77@gmail.com",
+          "role": "member"
+        },
+        {
+          "id": "1745753684510",
+          "name": "ALex",
+          "email": "alex@gmail.com",
+          "role": "member"
+        },
+        {
+          "name": "Dominic Kipkorir",
+          "email": "pkoordominic@gmail.com",
+          "role": "member"
+        },
+        {
+          "name": "Dominic ",
+          "email": "ivanpavlova7@gmail.com",
+          "role": "member"
         }
       ],
-      "id": "1"
+      "id": "1",
+      "categories": [
+        {
+          "id": "1745753858541",
+          "name": "asasa"
+        }
+      ]
     }
   ],
   "lists": [
@@ -60,26 +87,6 @@
       "spent": 3000,
       "date": "12-04-2025",
       "items": [
-        {
-          "id": "1",
-          "quantity": 10,
-          "price": 100,
-          "addedBy": "1"
-        },
-        {
-          "id": "2",
-          "quantity": 1,
-          "price": 500,
-          "addedBy": "1"
-        },
-        {
-          "title": "Tissue",
-          "category": "toiletries",
-          "quantity": 1212,
-          "price": 100,
-          "addedBy": "Dennis",
-          "status": true
-        }
       ],
       "status": true
     }
