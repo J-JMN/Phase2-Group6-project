@@ -1,59 +1,65 @@
 import { Formik, Field, ErrorMessage } from "formik";
-import { Form, Button, FloatingLabel, Alert, Spinner } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Form, Button, FormCheck, Alert, Spinner } from "react-bootstrap";
+import { Link, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import useFetch from "../../hooks/useFetch";
+import { toast } from "react-toastify";
 import { API_URL } from "../../constants/utility";
 
-function LoginForm({ onLoginSuccess }) {
+const LoginSchema = Yup.object().shape({
+  email: Yup.string()
+    .email("Please enter a valid email")
+    .required("Email is required"),
+  password: Yup.string()
+    .min(8, "Password must be at least 8 characters")
+    .required("Password is required"),
+});
+
+export default function LoginForm() {
   const [rememberMe, setRememberMe] = useState(false);
+  const [initialEmail, setInitialEmail] = useState("");
   const [loginError, setLoginError] = useState(null);
+  const navigate = useNavigate();
+  const { data: accountData } = useFetch(`${API_URL}/accounts/1`);
 
-  //schema setup
-  const LoginSchema = Yup.object().shape({
-    email: Yup.string()
-      .email("Please enter a valid email")
-      .required("Email is required"),
-    password: Yup.string()
-      .min(8, "Password must be at least 8 characters")
-      .required("Password is required"),
-  });
+  useEffect(() => {
+    const rememberedEmail = localStorage.getItem("rememberedEmail");
+    if (rememberedEmail) setInitialEmail(rememberedEmail);
+  }, []);
 
-      //handles submit
   const handleSubmit = async (values, { setSubmitting }) => {
     setLoginError(null);
-
     try {
-      //data fetching and error handling
-      const response = await fetch(`${API_URL}/api/auth/login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: values.email,
-          password: values.password,
-        }),
-      });
+      const { password, email } = values;
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || "Login failed");
+      if (password !== accountData?.accountPassword) {
+        throw new Error("The account password is incorrect");
       }
 
-      // Handle successful login
+      const existingMember = accountData?.members?.find(
+        (member) => member?.email === email
+      );
+      if (!existingMember) {
+        throw new Error("You don't have an account!");
+      }
+
+      localStorage.setItem("signedInUser", JSON.stringify(existingMember));
+      toast.success("Login successful, Welcome!!");
+
       if (rememberMe) {
-        localStorage.setItem("rememberedEmail", values.email);
+        localStorage.setItem("rememberedEmail", email);
       } else {
         localStorage.removeItem("rememberedEmail");
       }
 
-      localStorage.setItem("authToken", data.token);
-      onLoginSuccess(); // Notify parent component of successful login
+      setTimeout(() => navigate("/home"), 2000);
     } catch (err) {
       console.error("Login error:", err);
-      setLoginError(err.message || "Login failed. Please try again.");
+      setLoginError(
+        err.message ||
+          "Login failed. Please check your credentials and try again."
+      );
     } finally {
       setSubmitting(false);
     }
@@ -63,7 +69,7 @@ function LoginForm({ onLoginSuccess }) {
     <>
       <div className="text-align-center d-flex flex-column align-items-center justify-content-center w-100 my-4">
         <h4 className="mb-3">Welcome Back</h4>
-        <h3 className="text-muted mb-4">Login to your account</h3>
+        <h3 className="text-muted mb-4">Log In to your account</h3>
       </div>
 
       {loginError && (
@@ -73,17 +79,15 @@ function LoginForm({ onLoginSuccess }) {
       )}
 
       <Formik
-        initialValues={{ email: "", password: "" }}
+        initialValues={{ email: initialEmail, password: "" }}
         validationSchema={LoginSchema}
         onSubmit={handleSubmit}
+        enableReinitialize
       >
         {({ isSubmitting, handleSubmit, errors, touched }) => (
           <Form onSubmit={handleSubmit}>
-            <FloatingLabel
-              controlId="email"
-              label="Email Address"
-              className="mb-3"
-            >
+            <Form.Group className="mb-3">
+              <Form.Label>Email Address</Form.Label>
               <Field name="email">
                 {({ field }) => (
                   <Form.Control
@@ -99,13 +103,10 @@ function LoginForm({ onLoginSuccess }) {
                 component="div"
                 className="text-danger small mt-1"
               />
-            </FloatingLabel>
+            </Form.Group>
 
-            <FloatingLabel
-              controlId="password"
-              label="Password"
-              className="mb-4"
-            >
+            <Form.Group className="mb-3">
+              <Form.Label>Password</Form.Label>
               <Field name="password">
                 {({ field }) => (
                   <Form.Control
@@ -121,12 +122,11 @@ function LoginForm({ onLoginSuccess }) {
                 component="div"
                 className="text-danger small mt-1"
               />
-            </FloatingLabel>
+            </Form.Group>
 
             <div className="d-flex justify-content-between mb-4">
-              <Form.Check
+              <FormCheck
                 type="checkbox"
-                id="rememberMe"
                 label="Remember me"
                 checked={rememberMe}
                 onChange={(e) => setRememberMe(e.target.checked)}
@@ -171,7 +171,7 @@ function LoginForm({ onLoginSuccess }) {
             <p className="text-center mt-3" style={{ fontSize: "14px" }}>
               Don't have an account?{" "}
               <Link to="/signup" style={{ color: "#198754" }}>
-                Create Account
+                Create account
               </Link>
             </p>
           </Form>
@@ -180,5 +180,3 @@ function LoginForm({ onLoginSuccess }) {
     </>
   );
 }
-
-export default LoginForm;
