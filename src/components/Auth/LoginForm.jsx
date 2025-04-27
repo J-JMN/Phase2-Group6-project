@@ -21,7 +21,7 @@ export default function LoginForm() {
   const [initialEmail, setInitialEmail] = useState("");
   const [loginError, setLoginError] = useState(null);
   const navigate = useNavigate();
-  const { data: accountData } = useFetch(`${API_URL}/accounts/1`);
+  const { data: accountData } = useFetch(`${API_URL}/api/accounts/1`);
 
   useEffect(() => {
     const rememberedEmail = localStorage.getItem("rememberedEmail");
