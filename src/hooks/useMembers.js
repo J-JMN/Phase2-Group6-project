@@ -1,11 +1,13 @@
 import { toast } from "react-toastify";
 
 const useMembers = (members, setMembers) => {
-  const addMember = () => {
-    const name = prompt("Enter new member's name:");
-    if (!name) return;
+  const addMember = (name) => {
+    if (!name) {
+      toast.warning("Please enter a name");
+      return;
+    }
 
-    if (members.find((m) => m.name.toLowerCase() === name.toLowerCase())) {
+    if (members.find((m) => m?.name?.toLowerCase() === name?.toLowerCase())) {
       toast.warning("Member already exists");
       return;
     }
@@ -29,3 +31,4 @@ const useMembers = (members, setMembers) => {
 };
 
 export default useMembers;
+

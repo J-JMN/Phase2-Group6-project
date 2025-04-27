@@ -52,6 +52,9 @@ a{
 .custom-bg-base{
   background-color: var(--base) !important;
 }
+.custom-bg-red-accent{
+  background-color: #ffcbd1 !important;
+}
 .custom-text-color-primary{
   color: var(--primary) !important;
 }
@@ -62,5 +65,28 @@ a{
   color: var(--dark) !important;
 }
 .custom-border-secondary {
-  border-color: var(--secondary); /* or use your hex value */
+  border-color: var(--secondary) !important; /* or use your hex value */
+}
+.w-md-50{
+  width: 50% !important;
+}
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  .w-md-50{
+    width: 100% !important;
+  }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  /* .w-md-50{
+    width: 100% !important;
+  } */
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  /* .w-md-50{
+    width: 100% !important;
+  } */
 }

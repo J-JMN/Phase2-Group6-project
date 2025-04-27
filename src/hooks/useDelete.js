@@ -1,22 +1,21 @@
 import { useState, useCallback } from 'react';
 import { toast } from 'react-toastify';
 
-const usePost = (url) => {
+const useDelete = (url) => {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    const postData = useCallback(async (body) => {
+    const deleteData = useCallback(async (id) => {
         setLoading(true);
         setError(null);
 
         try {
-            const response = await fetch(url, {
-                method: 'POST',
+            const response = await fetch(url+'/'+id, {
+                method: 'DELETE',
                 headers: {
                   'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(body),
             });
     
             if (!response.ok) {
@@ -25,16 +24,17 @@ const usePost = (url) => {
     
             const result = await response.json();
             setData(result);
-            toast.success("Created successfully!"); 
+            toast.success('Successfully deleted', { autoClose: 2000 });
             return result;
         } catch (err) {
             setError(err);
+            toast.error("Failed to save data!"); 
         } finally {
             setLoading(false);
         }
     }, [url]);
 
-    return { data, loading, error, postData };
+    return { data, loading, error, deleteData };
 };
 
-export default usePost;
+export default useDelete;
