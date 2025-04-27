@@ -68,7 +68,7 @@ export default function LoginForm() {
     <>
       <div className="text-align-center d-flex flex-column align-items-center justify-content-center w-100 my-4">
         <h4 className="mb-3">Welcome Back</h4>
-        <h3 className="text-muted mb-4">Login to your account</h3>
+        <h3 className="text-muted mb-4">Log In to your account</h3>
       </div>
 
       {loginError && (
