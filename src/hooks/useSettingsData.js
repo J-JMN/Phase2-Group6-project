@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
-const SETTINGS_URL = "http://localhost:3000/settings";
+const SETTINGS_URL = "http://localhost:3000/accounts/1";
 
 export default function useSettingsData() {
   const [settings, setSettings] = useState(null);

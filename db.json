@@ -1,6 +1,6 @@
 {
   "settings": {
-    "accountName": "Group 6",
+    "accountName": "Group 6 edited",
     "accountPassword": "password",
     "categories": [
       {
@@ -53,22 +53,24 @@
   ],
   "accounts": [
     {
-      "accountName": "Group 6",
+      "accountName": "Group 6 edited",
       "accountPassword": "password",
       "members": [
         {
           "name": "dennis",
           "email": "dennissammy77@gmail.com",
-          "role": "owner"
+          "role": "owner",
+          "id": "1"
         },
         {
-          "name": "Sammy",
-          "email": "sammymusembi727@gmail.com",
+          "name": "Jessie",
+          "email": "jessie77@gmail.com",
           "role": "member"
         },
         {
-          "name": "Pauline",
-          "email": "pauline@gmail.com",
+          "id": "1745753684510",
+          "name": "ALex",
+          "email": "alex@gmail.com",
           "role": "member"
         },
         {
@@ -82,7 +84,13 @@
           "role": "member"
         }
       ],
-      "id": "1"
+      "id": "1",
+      "categories": [
+        {
+          "id": "1745753858541",
+          "name": "asasa"
+        }
+      ]
     }
   ],
   "lists": [
