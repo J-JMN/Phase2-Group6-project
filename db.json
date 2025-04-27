@@ -21,19 +21,19 @@
   },
   "inventory": [
     {
-      "id": "abe8",
-      "title": "Soap",
-      "category": "cleaning",
+      "title": "Tissue",
+      "category": "groceries",
       "description": "",
-      "price": 123,
-      "status": false,
+      "price": 12312,
+      "status": true,
       "priceList": [
         {
           "id": "1",
-          "amount": 123,
-          "date": "2025-04-26T21:04:26.981Z"
+          "amount": 12312,
+          "date": "2025-04-27T13:01:20.056Z"
         }
-      ]
+      ],
+      "id": 1
     }
   ],
   "accounts": [
@@ -87,6 +87,14 @@
       "spent": 3000,
       "date": "12-04-2025",
       "items": [
+        {
+          "title": "Tissue",
+          "category": "groceries",
+          "quantity": 12,
+          "price": 12312,
+          "addedBy": "Jessie",
+          "status": true
+        }
       ],
       "status": true
     }
