@@ -1,11 +1,9 @@
-// src/hooks/useAccountData.js
 import { useState, useEffect } from "react";
 
 const useAccountData = () => {
   const [account, setAccount] = useState(null);
 
   useEffect(() => {
-    // Fetch account data from db.json
     const fetchAccountData = async () => {
       try {
         const response = await fetch("http://localhost:3000/account");
@@ -17,7 +15,7 @@ const useAccountData = () => {
     };
 
     fetchAccountData();
-  }, []); // Empty dependency array ensures it runs once after the component mounts
+  }, []); 
 
   return { account, setAccount };
 };
