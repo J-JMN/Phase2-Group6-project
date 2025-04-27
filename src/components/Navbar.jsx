@@ -5,7 +5,7 @@ const Navbar = () => {
     <nav className="navbar px-3">
       <div className="container-fluid">
         {/* Logo */}
-        <NavLink to="/shop" className="navbar-brand text-decoration-none">
+        <NavLink to="/home" className="navbar-brand text-decoration-none">
           <h1 className="custom-text-color-primary fw-bold fs-2">
             <span className="custom-text-color-secondary">Shop</span>Mate
           </h1>
@@ -55,7 +55,7 @@ const Navbar = () => {
 const MenuLinks = () => (
   <>
     <NavLink
-      to="/shop"
+      to="/home"
       className={({ isActive }) =>
         `custom-text-color-primary fw-bold pb-1 ${
           isActive ? 'border-bottom border-2 custom-border-secondary' : ''
@@ -66,7 +66,7 @@ const MenuLinks = () => (
     </NavLink>
 
     <NavLink
-      to="/shop"
+      to="/home"
       className={({ isActive }) =>
         `custom-text-color-primary fw-bold pb-1 ${
           isActive ? 'border-bottom border-2 custom-border-secondary' : ''

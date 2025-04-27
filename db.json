@@ -76,16 +76,12 @@
       "date": "12-04-2025",
       "items": [
         {
-          "id": "1",
-          "quantity": 10,
+          "title": "Tissue",
+          "category": "toiletries",
+          "quantity": 12,
           "price": 100,
-          "addedBy": "1"
-        },
-        {
-          "id": "2",
-          "quantity": 1,
-          "price": 500,
-          "addedBy": "1"
+          "addedBy": "Dennis",
+          "status": true
         }
       ],
       "status": true

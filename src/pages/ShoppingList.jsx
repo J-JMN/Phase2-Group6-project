@@ -42,7 +42,7 @@ const ShoppingList = () => {
   const handleSubmit = async(data) => {
     try {
       toast.info('Saving item...', { autoClose: 1000 });
-      if(listsData?.items?.find((item)=>item?.title.trim().toLowerCase() === data?.title.trim().toLowerCase()) && editItemModal === null){
+      if(listsData?.items?.find((item)=>item?.title?.trim()?.toLowerCase() === data?.title?.trim()?.toLowerCase()) && editItemModal === null){
         throw new Error('This item already exists!')
       }
       if (editItemModal) {
@@ -196,9 +196,10 @@ const ShoppingList = () => {
   // };
 
   */
-  const filteredList = listsData?.items?.filter(item =>
-    item?.title.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredList = listsData?.items?.filter((item) =>
+    item?.title?.toLowerCase().includes(searchTerm?.toLowerCase())
   );
+  console.log(filteredList,listsData?.items)
 
   return (
     <div className='px-4 py-2'>
