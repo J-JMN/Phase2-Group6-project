@@ -1,23 +1,33 @@
-import {
+import React, {
   createContext,
-  useCallback,
   useState,
-  useEffect,
-  useMemo,
   useContext,
+  useEffect,
+  useCallback,
 } from "react";
 import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
+  const navigate = useNavigate();
   const [isAuthenticated, setAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
-  const [appData, setAppData] = useState(null);
-  const navigate = useNavigate();
 
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem("signedInUser"));
+    if (storedUser) {
+      setUser(storedUser);
+      setAuthenticated(true);
+    } else {
+      setAuthenticated(false);
+      navigate("/login");
+    }
+  }, [navigate]);
+
+  // Memoize the login function
   const login = useCallback(
-    async (userData) => {
+    (userData) => {
       setUser(userData);
       localStorage.setItem("signedInUser", JSON.stringify(userData));
       setAuthenticated(true);
@@ -26,37 +36,28 @@ export function AuthProvider({ children }) {
     [navigate]
   );
 
+  // Memoize the logout function
   const logout = useCallback(() => {
     setAuthenticated(false);
     setUser(null);
-    setAppData(null);
     localStorage.removeItem("signedInUser");
     navigate("/login");
   }, [navigate]);
 
-  useEffect(() => {
-    const storedUser = JSON.parse(localStorage.getItem("signedInUser"));
-    if (storedUser) {
-      setUser(storedUser);
-      setAuthenticated(true);
-    }
-  }, []);
-
-  const contextValue = useMemo(
-    () => ({
-      isAuthenticated,
-      user,
-      appData,
-      login,
-      logout,
-      setAppData,
-    }),
-    [isAuthenticated, user, appData, login, logout]
-  );
-
   return (
-    <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
+    <AuthContext.Provider
+      value={{
+        isAuthenticated,
+        user,
+        login,
+        logout,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
   );
 }
 
-export const useAuth = () => useContext(AuthContext);
+export function useAuth() {
+  return useContext(AuthContext);
+}
