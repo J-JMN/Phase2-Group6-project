@@ -15,20 +15,12 @@ export function AuthProvider({ children }) {
       setAuthenticated(true); 
     } else {
       setAuthenticated(false);
+      navigate("/login");
     }
   }, []); 
 
-  useEffect(() => {
-    if (isAuthenticated && window.location.pathname === '/login') {
-      navigate("/home"); 
-    } else if (!isAuthenticated && window.location.pathname !== '/login') {
-      navigate("/login"); 
-    }
-  }, [isAuthenticated, navigate]); 
-
   const login = (userData) => {
-    setUser(userData);
-    localStorage.setItem("signedInUser", JSON.stringify(userData)); 
+    setUser(userData); 
     setAuthenticated(true);
     navigate("/home"); 
   };

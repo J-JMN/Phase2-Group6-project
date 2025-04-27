@@ -11,10 +11,6 @@ export default function SettingsPage() {
   const { isAuthenticated, user, logout } = useAuth();
   const { settings, updateSettings } = useSettingsData();
 
-  if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
-  }
-
   if (!settings) return <p>Loading...</p>;
 
   const handleFormSubmit = (values) => {
