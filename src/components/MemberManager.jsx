@@ -52,9 +52,9 @@ export default function MemberManager({ members, onChange }) {
     <div className="my-4">
       <label className="form-label">Group Members</label>
       <div className="w-100">
-        {members.map((member) => (
+        {members?.map((member,index) => (
           <div
-            key={member.id}
+            key={index}
             className="d-flex justify-content-between align-items-center border p-2 rounded my-1"
           >
             <span>
