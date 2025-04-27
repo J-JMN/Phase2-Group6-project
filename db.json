@@ -1,61 +1,52 @@
 {
+  "settings": {
+    "accountName": "Group 6",
+    "accountPassword": "password",
+    "categories": [
+      {
+        "id": "1",
+        "name": [
+          "cleaning"
+        ]
+      }
+    ],
+    "members": [
+      {
+        "name": "dennis",
+        "email": "dennissammy77@gmail.com",
+        "role": "member",
+        "id": "1"
+      }
+    ]
+  },
   "inventory": [
     {
-      "id": "1",
+      "id": "2ef3",
       "title": "Tissue",
-      "category": "cleaning",
-      "description": "cleaning",
+      "category": "toiletries",
+      "description": "",
+      "price": 100,
+      "status": true,
       "priceList": [
         {
           "id": "1",
           "amount": 100,
-          "date": "12-04-2025"
+          "date": "2025-04-26T20:04:31.583Z"
         }
-      ],
-      "status": true
+      ]
     },
     {
-      "id": "8221",
+      "id": "abe8",
       "title": "Soap",
-      "category": "toiletries",
-      "description": "Always buy 4 pieces",
-      "price": 123,
-      "status": true,
-      "priceList": [
-        {
-          "id": "1",
-          "amount": 123,
-          "date": "2025-04-25T07:36:12.105Z"
-        }
-      ]
-    },
-    {
-      "id": "aeba",
-      "title": "Detergent",
-      "category": "toiletries",
-      "description": "sa",
-      "price": 123,
-      "status": true,
-      "priceList": [
-        {
-          "id": "1",
-          "amount": 123,
-          "date": "2025-04-25T07:38:20.372Z"
-        }
-      ]
-    },
-    {
-      "id": "1efe",
-      "title": "Broom",
       "category": "cleaning",
-      "description": "asasa",
+      "description": "",
       "price": 123,
       "status": true,
       "priceList": [
         {
           "id": "1",
           "amount": 123,
-          "date": "2025-04-25T07:41:40.605Z"
+          "date": "2025-04-26T20:04:55.000Z"
         }
       ]
     }
@@ -66,7 +57,7 @@
       "accountPassword": "password",
       "members": [
         {
-          "name": "Dennis",
+          "name": "dennis",
           "email": "dennissammy77@gmail.com",
           "role": "owner"
         },
@@ -94,27 +85,7 @@
       "id": "1"
     }
   ],
-  "items": [
-    {
-      "id": "77e9",
-      "title": "Soap",
-      "quantity": "3",
-      "price": 123,
-      "category": "toiletries",
-      "addedBy": "dennis",
-      "status": false
-    },
-    {
-      "id": "4a7a",
-      "title": "Soap",
-      "quantity": "3",
-      "price": 123,
-      "category": "toiletries",
-      "addedBy": "Sammy",
-      "status": false
-    }
-  ],
-  "templates": [
+  "lists": [
     {
       "id": "1",
       "title": "March Shopping",
@@ -124,16 +95,12 @@
       "date": "12-04-2025",
       "items": [
         {
-          "id": "1",
-          "quantity": 10,
+          "title": "Tissue",
+          "category": "toiletries",
+          "quantity": 12,
           "price": 100,
-          "addedBy": "1"
-        },
-        {
-          "id": "2",
-          "quantity": 1,
-          "price": 500,
-          "addedBy": "1"
+          "addedBy": "Dennis",
+          "status": true
         }
       ],
       "status": true

@@ -5,7 +5,7 @@ const Navbar = () => {
     <nav className="navbar px-3">
       <div className="container-fluid">
         {/* Logo */}
-        <NavLink to="/" className="navbar-brand text-decoration-none">
+        <NavLink to="/home" className="navbar-brand text-decoration-none">
           <h1 className="custom-text-color-primary fw-bold fs-2">
             <span className="custom-text-color-secondary">Shop</span>Mate
           </h1>
@@ -73,7 +73,7 @@ const MenuLinks = () => (
         }`
       }
     >
-      Shop
+      Shopping list
     </NavLink>
 
     <NavLink
