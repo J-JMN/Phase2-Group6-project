@@ -2,6 +2,16 @@
 
 A collaborative household shopping list management system built with React. Simplify shopping planning and execution with real-time updates and family sharing.
 
+## Setup
+# 1. Clone the repository
+git clone [<repository-url>](https://github.com/J-JMN/Phase2-Group6-project.git)
+cd Phase2-Group6-project
+
+# 2. Install dependencies
+npm install
+
+# 3. Start the development server
+npm run dev
 
 ## Authentication Module
 
@@ -75,3 +85,15 @@ The **Settings Page** allows authenticated family members to update account cred
 ## Dependencies
 ```bash
 npm install formik yup react-toastify react-router-dom
+```
+
+## Inventory Module
+
+### Overview
+Implements user list for ShopMate for items a household manages. Tracks items on a day to day basis.
+
+### Features
+- **Form Handling**: Built with Formik for robust form management  
+- **Validation**: Uses Yup for field validation  
+- **Notifications**: Toast messages for user feedback  
+- **Responsive Design**: Mobile-first layout with React-Bootstrap 
