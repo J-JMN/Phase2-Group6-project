@@ -1,24 +1,4 @@
 {
-  "settings": {
-    "accountName": "Group 6 edited",
-    "accountPassword": "password",
-    "categories": [
-      {
-        "id": "1",
-        "name": [
-          "cleaning"
-        ]
-      }
-    ],
-    "members": [
-      {
-        "name": "dennis",
-        "email": "dennissammy77@gmail.com",
-        "role": "member",
-        "id": "1"
-      }
-    ]
-  },
   "inventory": [
     {
       "title": "Tissue",
@@ -38,42 +18,31 @@
   ],
   "accounts": [
     {
-      "accountName": "Group 6 edited",
+      "accountName": "Group 6",
       "accountPassword": "password",
       "members": [
         {
-          "name": "dennis",
-          "email": "dennissammy77@gmail.com",
+          "name": "Joseph",
+          "email": "hermanzzjj@gmail.com",
           "role": "owner",
           "id": "1"
         },
         {
-          "name": "Jessie",
-          "email": "jessie77@gmail.com",
-          "role": "member"
-        },
-        {
-          "id": "1745753684510",
-          "name": "ALex",
-          "email": "alex@gmail.com",
-          "role": "member"
-        },
-        {
-          "name": "Dominic Kipkorir",
-          "email": "pkoordominic@gmail.com",
-          "role": "member"
-        },
-        {
-          "name": "Dominic ",
-          "email": "ivanpavlova7@gmail.com",
+          "id": "1745757945024",
+          "name": "Dennis",
+          "email": "dennissammy77@gmail.com",
           "role": "member"
         }
       ],
       "id": "1",
       "categories": [
         {
-          "id": "1745753858541",
-          "name": "asasa"
+          "id": "1745757897036",
+          "name": "Toiletries"
+        },
+        {
+          "id": "1745757902322",
+          "name": "Groceries"
         }
       ]
     }
