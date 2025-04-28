@@ -15,7 +15,7 @@ const Navbar = () => {
 
         {/* Drawer Toggle Button */}
         <button
-          className="btn d-lg-none"
+          className="btn d-md-none"
           type="button"
           data-bs-toggle="offcanvas"
           data-bs-target="#mobileDrawer"
@@ -25,7 +25,7 @@ const Navbar = () => {
         </button>
 
         {/* Desktop Menu */}
-        <div className="d-none d-lg-flex flex-row gap-4 align-items-center p-2 px-4 fs-5 ms-auto">
+        <div className="d-none d-md-flex flex-row gap-4 align-items-center p-2 px-4 fs-5 ms-auto">
           <MenuLinks user={user}/>
         </div>
       </div>
@@ -45,7 +45,7 @@ const Navbar = () => {
         </div>
         <div className="offcanvas-body">
           <div className="d-flex flex-column gap-3 fs-5">
-            <MenuLinks />
+            <MenuLinks user={user}/>
           </div>
         </div>
       </div>
