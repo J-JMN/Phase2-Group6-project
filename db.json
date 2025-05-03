@@ -32,6 +32,11 @@
           "name": "Dennis",
           "email": "dennissammy77@gmail.com",
           "role": "member"
+        },
+        {
+          "name": "pauline",
+          "email": "pauline@gmail.com",
+          "role": "member"
         }
       ],
       "id": "1",
@@ -43,6 +48,14 @@
         {
           "id": "1745757902322",
           "name": "Groceries"
+        },
+        {
+          "id": "1746254269831",
+          "name": "cosmetics"
+        },
+        {
+          "id": "1746254288030",
+          "name": "Body oil"
         }
       ]
     }
